@@ -1,45 +1,43 @@
 {
-  "matches": [
-    {
-      "name": "matchA",
-      "title": "Match A",
-      "order": 1,
-      "players": {
-        "leftPlayer": {
-          "name": "Brad",
-          "deck": "Deck A",
-          "record": "1-0-1",
-          "life": 20,
-          "infect": 10,
-          "wins": 0,
-          "sideboard": null
+    "info": [
+        {
+            "name": "format",
+            "type": "text",
+            "value": "Brad Brown",
+            "order": 2
         },
-        "rightPlayer": {
-          "name": "Mat",
-          "deck": "Deck B",
-          "record": "2-0",
-          "life": 15,
-          "infect": 5,
-          "wins": 0,
-          "sideboard": null
+        {
+            "name": "round",
+            "type": "text",
+            "value": "Round 1 of 7",
+            "order": 1
         }
-      }
-    }
-  ],
-  "info": [
-    {
-      "name": "format",
-      "type": "text",
-      "value": "Modern",
-      "order": 2
-    },
-    {
-      "name": "round",
-      "type": "text",
-      "value": "Round 1 of 7",
-      "order": 1
-    }
-  ]
+    ],
+    "matches": [
+        {
+            "name": "matchA",
+            "title": "Match A",
+            "order": 1,
+            "players": {
+                "leftPlayer": {
+                    "name": "Brad",
+                    "deck": "Deck A",
+                    "record": "1-0-1",
+                    "life": 20,
+                    "infect": 10,
+                    "wins": null,
+                    "sideboard": null
+                },
+                "rightPlayer": {
+                    "name": "Mat",
+                    "deck": "Deck B",
+                    "record": "2-0",
+                    "life": 15,
+                    "infect": 5,
+                    "wins": null,
+                    "sideboard": null
+                }
+            }
+        }
+    ]
 }
-
-  
