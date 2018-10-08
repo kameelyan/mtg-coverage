@@ -1,43 +1,65 @@
 <div class="d-flex flex-column flex-fill wrapper">
     <div class="d-flex nav-top px-2">
-        <div>
+        <div class="text-muted">
             <fa-icon [icon]="faIcons.faArrowLeft" size="2x"></fa-icon>
         </div>
-        <div class="text-center">
+        <div class="text-center text-muted">
             <fa-icon [icon]="faIcons.faSwap" size="2x"></fa-icon>
         </div>
-        <div>
-            <fa-icon [icon]="faIcons.faCircle" size="2x"></fa-icon>
+        <div class="d-flex align-items-center justify-content-end text-red">
+            <fa-icon [icon]="faIcons.faCircle" size="1x"></fa-icon>
         </div>
     </div>
-    <div class="d-flex flex-grow-1 align-items-stretch b-nrg-top">
-        <div class="d-flex flex-column flex-grow-1 text-center b-nrg-right">
-            <div>+</div>
+    <div class="d-flex flex-grow-1 align-items-stretch b-nrg-top bg-nrg">
+        <div class="d-flex flex-column flex-grow-1 text-center">
+            <div class="text-muted pt-2">
+                <fa-icon [icon]="faIcons.faPlus" size="1x"></fa-icon>
+            </div>
             <div class="d-flex flex-column flex-grow-1 align-items-center justify-content-center">
                 <div class="name">Brad Brown</div>
-                <div class="font-nrg">20</div>
+                <div class="font-nrg life">20</div>
             </div>
-            <div>-</div>
+            <div class="text-muted pb-2">
+                <fa-icon [icon]="faIcons.faMinus" size="1x"></fa-icon>
+            </div>
         </div>
         <div class="d-flex flex-column flex-grow-1 text-center">
-            <div>+</div>
+            <div class="text-muted pt-2">
+                <fa-icon [icon]="faIcons.faPlus" size="1x"></fa-icon>
+            </div>
             <div class="d-flex flex-column flex-grow-1 align-items-center justify-content-center">
                 <div class="name">Mat Bimonte</div>
-                <div class="font-nrg">20</div>
+                <div class="font-nrg life">20</div>
             </div>
-            <div>-</div>
+            <div class="text-muted pb-2">
+                <fa-icon [icon]="faIcons.faMinus" size="1x"></fa-icon>
+            </div>
         </div>
     </div>
-    <div class="d-flex justify-content-between b-nrg-top">
-        <div>Life</div>
-        <div>Infect</div>
-        <div>Wins</div>
-        <div>Reset</div>
-        <div>Wins</div>
-        <div>Infect</div>
-        <div>Life</div>
+    <div class="d-flex justify-content-between p-2 b-nrg-top b-nrg-bottom">
+        <div>
+            <fa-icon [icon]="faIcons.faHeart" size="2x"></fa-icon>
+        </div>
+        <div class="img-svg">
+            <img src="assets/phyrexian.svg" alt="" />
+        </div>
+        <div class="text-red">
+            <fa-icon [icon]="faIcons.faTrophy" size="2x"></fa-icon>
+        </div>
+        <div class="text-muted">
+            <fa-icon [icon]="faIcons.faUndo" size="2x"></fa-icon>
+        </div>
+        <div class="text-red">
+            <fa-icon [icon]="faIcons.faTrophy" size="2x"></fa-icon>
+        </div>
+        <div class="img-svg">
+            <img src="assets/phyrexian.svg" alt="" />
+        </div>
+        <div>
+            <fa-icon [icon]="faIcons.faHeart" size="2x"></fa-icon>
+        </div>
     </div>
-    <div class="text-center">
-        Update
+    <div>
+        <button type="button" class="btn-update font-nrg">UPDATE</button>
     </div>
 </div>

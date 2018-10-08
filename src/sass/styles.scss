@@ -1,18 +1,27 @@
 @import '~bootstrap/scss/bootstrap';
 
 $NRG: #f36b25;
+$red: #a41307;
+$green: #92bb38;
 
 body {
     background-color: black;
     color: $NRG;
+}
+
+.bg-nrg {
     background-image: url('../assets/nrg.png');
     background-position: center;
     background-size: 20%;
     background-repeat: no-repeat;
 }
 
-.wrapper {
-    border: 2px solid $NRG;
+.text-red {
+    color: $red;
+}
+
+.name {
+    color: #fff;
 }
 
 .nav-top {
@@ -21,16 +30,76 @@ body {
     }
 }
 
-.b-nrg-top {
-    border-top: 2px solid $NRG;
+.img-svg {
+    img {
+        height: 2rem;
+    }
 }
 
-.b-nrg-right {
-    border-right: 2px solid $NRG;
+.wrapper {
+    border: 2px solid $NRG;
+
+    .b-nrg-top {
+        border-top: 2px solid $NRG;
+    }
+
+    .b-nrg-bottom {
+        border-bottom: 2px solid $NRG;
+    }
+
+    &.infect {
+        border-color: $green;
+
+        .b-nrg-top {
+            border-color: $green;
+        }
+
+        .b-nrg-bottom {
+            border-color: $green;
+        }
+
+        .font-nrg {
+            color: $green;
+        }
+    }
+
+    &.wins {
+        border-color: $red;
+
+        .b-nrg-top {
+            border-color: $red;
+        }
+
+        .b-nrg-bottom {
+            border-color: $red;
+        }
+
+        .font-nrg {
+            color: $red;
+        }
+    }
 }
 
 .font-nrg {
     font-family: 'Kimberley Bl';
     color: $NRG;
+}
+
+.life {
     font-size: 7rem;
+}
+
+.btn-update {
+    display: block;
+    width: 100%;
+    border: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    background-color: transparent;
 }

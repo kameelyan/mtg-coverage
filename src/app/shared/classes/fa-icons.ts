@@ -1,15 +1,28 @@
-import { faUpload, faLongArrowAltLeft, faExchangeAlt, faCircle } from '@fortawesome/free-solid-svg-icons'
+import {
+    faUpload, faLongArrowAltLeft, faExchangeAlt,
+    faCircle, faPlus, faMinus, faHeart, faTrophy, faUndo
+} from '@fortawesome/free-solid-svg-icons'
 
 export class FAIcons {
     faUpload;
     faArrowLeft;
     faSwap;
     faCircle;
+    faPlus;
+    faMinus;
+    faHeart;
+    faTrophy;
+    faUndo;
 
     constructor() {
         this.faUpload = faUpload;
         this.faArrowLeft = faLongArrowAltLeft;
         this.faSwap = faExchangeAlt;
         this.faCircle = faCircle;
+        this.faPlus = faPlus;
+        this.faMinus = faMinus;
+        this.faHeart = faHeart;
+        this.faTrophy = faTrophy;
+        this.faUndo = faUndo;
     }
 }
