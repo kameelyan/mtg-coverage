@@ -27,9 +27,13 @@
               "src/start.bat"
             ],
             "styles": [
-              "src/sass/styles.scss"
+                "src/sass/styles.scss",
+                "src/assets/fonts/kimberleybl.scss"
             ],
             "scripts": [
+                {
+                    "input": "./node_modules/jquery/dist/jquery.slim.min.js"
+                },
                 {
                     "input": "./node_modules/bootstrap/dist/js/bootstrap.bundle.js"
                 }
@@ -80,9 +84,13 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/sass/styles.scss"
+                "src/sass/styles.scss",
+                "src/assets/fonts/kimberleybl.scss"
             ],
             "scripts": [
+                {
+                    "input": "./node_modules/jquery/dist/jquery.slim.min.js"
+                },
                 {
                     "input": "./node_modules/bootstrap/dist/js/bootstrap.bundle.js"
                 }

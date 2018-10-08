@@ -1,14 +1,36 @@
 @import '~bootstrap/scss/bootstrap';
 
+$NRG: #f36b25;
+
 body {
     background-color: black;
-    color: white;
+    color: $NRG;
+    background-image: url('../assets/nrg.png');
+    background-position: center;
+    background-size: 20%;
+    background-repeat: no-repeat;
 }
 
-.rotate-text-left {
-    transform: rotate(-90deg);
+.wrapper {
+    border: 2px solid $NRG;
 }
 
-.rotate-text-right {
-    transform: rotate(90deg);
+.nav-top {
+    & div {
+        flex: 1 0 0;
+    }
+}
+
+.b-nrg-top {
+    border-top: 2px solid $NRG;
+}
+
+.b-nrg-right {
+    border-right: 2px solid $NRG;
+}
+
+.font-nrg {
+    font-family: 'Kimberley Bl';
+    color: $NRG;
+    font-size: 7rem;
 }

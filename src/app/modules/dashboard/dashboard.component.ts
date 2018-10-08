@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TournamentService } from '../../shared/services/tournament.service';
 import { Tournament } from '../../shared/classes/tournament';
 import { NgForm } from '@angular/forms';
+import { FAIcons } from '../../shared/classes/fa-icons';
 
 @Component({
     selector: 'app-dashboard',
@@ -12,6 +13,7 @@ import { NgForm } from '@angular/forms';
 export class DashboardComponent implements OnInit {
     @HostBinding('class') class = 'd-flex flex-column flex-fill';
     tournament: Tournament = null;
+    faIcons = new FAIcons();
 
     constructor(
         private route: ActivatedRoute,
