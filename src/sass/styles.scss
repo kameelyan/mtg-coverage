@@ -1,12 +1,14 @@
+@import '_overrides.scss';
 @import '~bootstrap/scss/bootstrap';
 
-$NRG: #f36b25;
+$orange: #f36b25;
 $red: #a41307;
 $green: #92bb38;
+$muted: #6c757d;
 
 body {
     background-color: black;
-    color: $NRG;
+    color: $orange;
 }
 
 .bg-nrg {
@@ -18,10 +20,6 @@ body {
 
 .text-red {
     color: $red;
-}
-
-.name {
-    color: #fff;
 }
 
 .nav-top {
@@ -37,14 +35,14 @@ body {
 }
 
 .wrapper {
-    border: 2px solid $NRG;
+    border: 2px solid $orange;
 
     .b-nrg-top {
-        border-top: 2px solid $NRG;
+        border-top: 2px solid $orange;
     }
 
     .b-nrg-bottom {
-        border-bottom: 2px solid $NRG;
+        border-bottom: 2px solid $orange;
     }
 
     &.infect {
@@ -82,16 +80,14 @@ body {
 
 .font-nrg {
     font-family: 'Kimberley Bl';
-    color: $NRG;
+    color: $orange;
 }
 
-.life {
+.value {
     font-size: 7rem;
 }
 
-.btn-update {
-    display: block;
-    width: 100%;
+.btn {
     border: 0;
     font-weight: 400;
     text-align: center;
@@ -99,7 +95,74 @@ body {
     vertical-align: middle;
     user-select: none;
     padding: 0.375rem 0.75rem;
-    font-size: 1rem;
     line-height: 1.5;
     background-color: transparent;
+
+    &:focus {
+        box-shadow: none;
+    }
+
+    &.btn-xl {
+        font-size: 2.5rem;
+    }
+
+    &.btn-update {
+
+        &:hover {
+            color: darken($orange, 10%);
+        }
+    }
+
+    &.btn-wins {
+        color: $red;
+
+        &:hover {
+            color: darken($red, 10%);
+        }
+    }
+
+    &.btn-life {
+        color: $orange;
+
+        &:hover {
+            color: darken($orange, 10%);
+        }
+    }
+
+    &.btn-muted {
+        color: $muted !important;
+
+        &:hover {
+            color: darken($muted, 10%) !important;
+        }
+    }
+}
+
+.region {
+    background-color: transparent;
+    cursor: pointer;
+    position: absolute;
+    height: 50%;
+    width: 50%;
+    z-index: 100;
+
+    &.top-left {
+        top: 0;
+        left: 0;
+    }
+
+    &.bottom-left {
+        bottom: 0;
+        left: 0;
+    }
+
+    &.top-right {
+        top: 0;
+        right: 0;
+    }
+
+    &.bottom-right {
+        bottom: 0;
+        right: 0;
+    }
 }

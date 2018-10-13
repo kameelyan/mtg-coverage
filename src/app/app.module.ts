@@ -8,6 +8,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HomeComponent } from './modules/home/home/home.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
 
 @NgModule({
     imports: [
@@ -16,13 +20,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         HttpClientModule,
         NgbModule,
         FormsModule,
-        FontAwesomeModule
-
+        FontAwesomeModule,
+        BrowserModule,
+        SocketIoModule.forRoot(config)
     ],
     declarations: [
         AppComponent,
         DashboardComponent,
-        AdminComponent
+        AdminComponent,
+        HomeComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

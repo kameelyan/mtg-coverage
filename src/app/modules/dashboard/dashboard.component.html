@@ -1,65 +1,103 @@
-<div class="d-flex flex-column flex-fill wrapper">
-    <div class="d-flex nav-top px-2">
-        <div class="text-muted">
-            <fa-icon [icon]="faIcons.faArrowLeft" size="2x"></fa-icon>
+<div class="d-flex flex-column flex-fill wrapper" [ngClass]="activeSection">
+    <div class="d-flex nav-top px-5 align-items-center">
+        <div>
+            <a class="btn btn-muted" routerLink="/">
+                <fa-icon [icon]="faIcons.faArrowLeft" size="2x"></fa-icon>
+            </a>
         </div>
-        <div class="text-center text-muted">
-            <fa-icon [icon]="faIcons.faSwap" size="2x"></fa-icon>
+        <div class="text-center">
+            <button type="button" class="btn btn-muted" (click)="swapPlayers()">
+                <fa-icon [icon]="faIcons.faSwap" size="2x"></fa-icon>
+            </button>
         </div>
         <div class="d-flex align-items-center justify-content-end text-red">
             <fa-icon [icon]="faIcons.faCircle" size="1x"></fa-icon>
         </div>
     </div>
-    <div class="d-flex flex-grow-1 align-items-stretch b-nrg-top bg-nrg">
-        <div class="d-flex flex-column flex-grow-1 text-center">
-            <div class="text-muted pt-2">
-                <fa-icon [icon]="faIcons.faPlus" size="1x"></fa-icon>
-            </div>
-            <div class="d-flex flex-column flex-grow-1 align-items-center justify-content-center">
-                <div class="name">Brad Brown</div>
-                <div class="font-nrg life">20</div>
-            </div>
-            <div class="text-muted pb-2">
-                <fa-icon [icon]="faIcons.faMinus" size="1x"></fa-icon>
-            </div>
-        </div>
-        <div class="d-flex flex-column flex-grow-1 text-center">
-            <div class="text-muted pt-2">
-                <fa-icon [icon]="faIcons.faPlus" size="1x"></fa-icon>
-            </div>
-            <div class="d-flex flex-column flex-grow-1 align-items-center justify-content-center">
-                <div class="name">Mat Bimonte</div>
-                <div class="font-nrg life">20</div>
-            </div>
-            <div class="text-muted pb-2">
-                <fa-icon [icon]="faIcons.faMinus" size="1x"></fa-icon>
-            </div>
-        </div>
+    <div class="d-flex justify-content-center b-nrg-top text-white">
+        <h2>{{match.title}}</h2>
     </div>
-    <div class="d-flex justify-content-between p-2 b-nrg-top b-nrg-bottom">
+    <div class="d-flex flex-grow-1 align-items-stretch position-relative b-nrg-top bg-nrg">
+        <div class="d-flex flex-column w-50 text-center">
+            <div class="text-muted pt-5">
+                <fa-icon [icon]="faIcons.faPlus" size="2x"></fa-icon>
+            </div>
+            <div class="d-flex flex-column flex-grow-1 align-items-center justify-content-center">
+                <ng-template [ngIf]="!mirrored">
+                    <h4 class="text-white mb-0">{{match.players.leftPlayer.name}}</h4>
+                    <div class="font-nrg value">
+                        <span *ngIf="activeSection === 'life'">{{match.players.leftPlayer.life}}</span>
+                        <span *ngIf="activeSection === 'infect'">{{match.players.leftPlayer.infect}}</span>
+                        <span *ngIf="activeSection === 'wins'">{{match.players.leftPlayer.wins}}</span>
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="mirrored">
+                    <h4 class="text-white mb-0">{{match.players.rightPlayer.name}}</h4>
+                    <div class="font-nrg value">
+                        <span *ngIf="activeSection === 'life'">{{match.players.rightPlayer.life}}</span>
+                        <span *ngIf="activeSection === 'infect'">{{match.players.rightPlayer.infect}}</span>
+                        <span *ngIf="activeSection === 'wins'">{{match.players.rightPlayer.wins}}</span>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="text-muted pb-5">
+                <fa-icon [icon]="faIcons.faMinus" size="2x"></fa-icon>
+            </div>
+        </div>
+        <div class="d-flex flex-column w-50 text-center">
+            <div class="text-muted pt-5">
+                <fa-icon [icon]="faIcons.faPlus" size="2x"></fa-icon>
+            </div>
+            <div class="d-flex flex-column flex-grow-1 align-items-center justify-content-center">
+                <ng-template [ngIf]="!mirrored">
+                    <h4 class="text-white mb-0">{{match.players.rightPlayer.name}}</h4>
+                    <div class="font-nrg value">
+                        <span *ngIf="activeSection === 'life'">{{match.players.rightPlayer.life}}</span>
+                        <span *ngIf="activeSection === 'infect'">{{match.players.rightPlayer.infect}}</span>
+                        <span *ngIf="activeSection === 'wins'">{{match.players.rightPlayer.wins}}</span>
+                    </div>
+                </ng-template>
+                <ng-template [ngIf]="mirrored">
+                    <h4 class="text-white mb-0">{{match.players.leftPlayer.name}}</h4>
+                    <div class="font-nrg value">
+                        <span *ngIf="activeSection === 'life'">{{match.players.leftPlayer.life}}</span>
+                        <span *ngIf="activeSection === 'infect'">{{match.players.leftPlayer.infect}}</span>
+                        <span *ngIf="activeSection === 'wins'">{{match.players.leftPlayer.wins}}</span>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="text-muted pb-5">
+                <fa-icon [icon]="faIcons.faMinus" size="2x"></fa-icon>
+            </div>
+        </div>
+        <div class="region top-left" (click)="updateValue('left', 1)"></div>
+        <div class="region bottom-left" (click)="updateValue('left', -1)"></div>
+        <div class="region top-right" (click)="updateValue('right', 1)"></div>
+        <div class="region bottom-right" (click)="updateValue('right', -1)"></div>
+    </div>
+    <div class="d-flex align-items-center justify-content-between py-2 px-5 b-nrg-top b-nrg-bottom">
         <div>
-            <fa-icon [icon]="faIcons.faHeart" size="2x"></fa-icon>
+            <button type="button" class="btn btn-life" (click)="activeSection = 'life'">
+                <fa-icon [icon]="faIcons.faHeart" size="2x"></fa-icon>
+            </button>
         </div>
         <div class="img-svg">
-            <img src="assets/phyrexian.svg" alt="" />
-        </div>
-        <div class="text-red">
-            <fa-icon [icon]="faIcons.faTrophy" size="2x"></fa-icon>
-        </div>
-        <div class="text-muted">
-            <fa-icon [icon]="faIcons.faUndo" size="2x"></fa-icon>
-        </div>
-        <div class="text-red">
-            <fa-icon [icon]="faIcons.faTrophy" size="2x"></fa-icon>
-        </div>
-        <div class="img-svg">
-            <img src="assets/phyrexian.svg" alt="" />
+            <button type="button" class="btn btn-infect" (click)="activeSection = 'infect'">
+                <img src="assets/phyrexian.svg" alt="" />
+            </button>
         </div>
         <div>
-            <fa-icon [icon]="faIcons.faHeart" size="2x"></fa-icon>
+            <button type="button" class="btn btn-wins" (click)="activeSection = 'wins'">
+                <fa-icon [icon]="faIcons.faTrophy" size="2x"></fa-icon>
+            </button>
+        </div>
+        <div>
+            <button type="button" class="btn btn-muted" (click)="resetValues()">
+                <fa-icon [icon]="faIcons.faUndo" size="2x"></fa-icon>
+            </button>
         </div>
     </div>
     <div>
-        <button type="button" class="btn-update font-nrg">UPDATE</button>
+        <button type="button" class="btn btn-block btn-xl font-nrg" [class.btn-update]="dataChanged" [class.btn-muted]="!dataChanged" (click)="onUpdate()">UPDATE</button>
     </div>
 </div>
