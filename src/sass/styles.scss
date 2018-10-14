@@ -1,23 +1,6 @@
 @import '_overrides.scss';
 @import '~bootstrap/scss/bootstrap';
 
-$orange: #f36b25;
-$red: #a41307;
-$green: #92bb38;
-$muted: #6c757d;
-
-body {
-    background-color: black;
-    color: $orange;
-}
-
-.bg-nrg {
-    background-image: url('../assets/nrg.png');
-    background-position: center;
-    background-size: 20%;
-    background-repeat: no-repeat;
-}
-
 .text-red {
     color: $red;
 }
@@ -32,6 +15,14 @@ body {
     img {
         height: 2rem;
     }
+}
+
+.pt-icon {
+    padding-top: 3rem;
+}
+
+.pb-icon {
+    padding-bottom: 3rem;
 }
 
 .wrapper {
@@ -61,7 +52,7 @@ body {
         }
     }
 
-    &.wins {
+    &.gamewins {
         border-color: $red;
 
         .b-nrg-top {
@@ -164,5 +155,43 @@ body {
     &.bottom-right {
         bottom: 0;
         right: 0;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .btn-xl {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 767.98px) and (orientation:landscape) {
+    html {
+        font-size: 10px;
+    }
+
+    .value {
+        font-size: 5rem;
+    }
+
+    .pt-icon {
+        padding-top: 1rem;
+    }
+
+    .pb-icon {
+        padding-bottom: 1rem;
+    }
+}
+
+@media (max-width: 767.98px) and (orientation:portrait) {
+    html {
+        font-size: 12px;
+    }
+
+    .pt-icon {
+        padding-top: 1.5rem;
+    }
+
+    .pb-icon {
+        padding-bottom: 1.5rem;
     }
 }

@@ -1,0 +1,11 @@
+<div class="d-flex flex-column flex-fill wrapper align-items-center p-4">
+    <h2>{{tournament.getInfo('round')}}: <span class="text-white">Select a Match</span></h2>
+    <div class="list-group w-100">
+        <ng-template ngFor let-match [ngForOf]="tournament.matches | available">
+            <a routerLink="/match/{{match.name}}" class="list-group-item list-group-item-action text-center">
+                <h3>{{match.title}}</h3>
+                <span class="text-muted">{{match.leftPlayer.name}} vs {{match.rightPlayer.name}}</span>
+            </a>
+        </ng-template>
+    </div>
+</div>

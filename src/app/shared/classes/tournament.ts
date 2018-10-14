@@ -33,6 +33,13 @@ export class Tournament {
             }
         }
     }
+
+    getInfo(name: string): string {
+        const info = this.info.filter((input) => {
+            return input.name === name;
+        }).shift();
+        return info !== undefined ? info.value : '';
+    }
 }
 
 export class Info {
@@ -58,7 +65,8 @@ export class Match {
     name: string = null;
     title: string = null;
     order: number = null;
-    players: Players = null;
+    leftPlayer: Player = null;
+    rightPlayer: Player = null;
     begin: boolean = false;
 
     constructor(data?: any) {
@@ -67,28 +75,13 @@ export class Match {
             for (const prop in props) {
                 if (data[props[prop]]) {
                     switch (props[prop]) {
-                        case 'players':
-                            this.players = new Players(data.players);
+                        case 'leftPlayer':
+                        case 'rightPlayer':
+                            this[props[prop]] = new Player(data[props[prop]]);
                             break;
                         default:
                             this[props[prop]] = data[props[prop]];
                     }
-                }
-            }
-        }
-    }
-}
-
-export class Players {
-    leftPlayer: Player = null;
-    rightPlayer: Player = null;
-
-    constructor(data?: any) {
-        if (data) {
-            const props = Object.keys(this);
-            for (const prop in props) {
-                if (data[props[prop]]) {
-                    this[props[prop]] = new Player(data[props[prop]]);
                 }
             }
         }
@@ -101,7 +94,7 @@ export class Player {
     record: string = '0-0';
     life: number = 20;
     infect: number = 0;
-    wins: number = 0;
+    gamewins: number = 0;
     sideboard: string = '';
 
     constructor(data?: any) {

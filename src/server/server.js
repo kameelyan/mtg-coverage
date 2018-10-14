@@ -8,6 +8,16 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 const port = 5000;
 
+
+var ensureDirectory = function (file) {
+    const dir = path.dirname(file);
+    if (fs.existsSync(dir)) {
+        return true;
+    }
+    ensureDirectory(dir);
+    fs.mkdirSync(dir);
+};
+
 var readTournament = function () {
     const file = path.resolve(__dirname, 'data/tournament.json');
     const data = fs.readFileSync(file, 'utf8');
@@ -15,8 +25,38 @@ var readTournament = function () {
 };
 
 var writeTournament = function (tournament) {
-    const file = path.resolve(__dirname, 'data/tournament.json');
+    let file = path.resolve(__dirname, 'data/tournament.json');
+    ensureDirectory(file);
     fs.writeFileSync(file, JSON.stringify(tournament), 'utf8');
+
+    writeOBSFiles(tournament);
+};
+
+var writeOBSFiles = function (tournament) {
+    ensureDirectory(path.resolve(__dirname, 'obs/foo.txt'));
+    tournament.info.forEach((input) => {
+        file = path.resolve(__dirname, 'obs/' + input.name + '.txt');
+        fs.writeFileSync(file, input.value, 'utf8');
+    });
+
+    tournament.matches.forEach((match) => {
+        writePlayer(match.leftPlayer, match.name, 'leftPlayer');
+        writePlayer(match.rightPlayer, match.name, 'rightPlayer');
+    });
+};
+
+var writePlayer = function (player, matchName, playerPrefix) {
+    let filePrefix = matchName + "_" + playerPrefix;
+    let file = '';
+    const props = Object.keys(player);
+    for (const prop in props) {
+        file = path.resolve(__dirname, 'obs/' + filePrefix + capFirstLetter(props[prop]) + '.txt');
+        fs.writeFileSync(file, player[props[prop]], 'utf8');
+    }
+};
+
+var capFirstLetter = function (value) {
+    return value.charAt(0).toUpperCase() + value.slice(1);
 };
 
 var saveMatch = function (data) {
@@ -101,4 +141,9 @@ io.on('connection', function (socket) {
 
 server.listen(port, function () {
     console.log("listening to port: " + port);
+
+    if (fs.existsSync(path.resolve(__dirname, 'data/tournament.json'))) {
+        const tournament = readTournament();
+        writeOBSFiles(tournament);
+    }
 });

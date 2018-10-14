@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class TournamentService {
-    private api: string = environment.api;
+    private api: string = environment.api + '/api';
 
     constructor(
         private http: HttpClient,

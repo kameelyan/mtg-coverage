@@ -1,0 +1,14 @@
+$orange: #f36b25;
+$red: #a41307;
+$green: #92bb38;
+$muted: #6c757d;
+
+$body-bg: #000;
+$body-color: $orange;
+
+$list-group-bg: $body-bg;
+$list-group-action-color: $orange;
+$list-group-border-color: $orange;
+$list-group-action-hover-color: darken($orange, 10%);
+$list-group-action-active-color: $orange;
+$list-group-action-active-bg: darken($orange, 10%);

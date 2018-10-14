@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { AdminComponent } from './modules/admin/admin.component';
 import { TournamentResolver } from './shared/services/tournament-resolver';
-import { HomeComponent } from './modules/home/home/home.component';
+import { HomeComponent } from './modules/home/home.component';
 import { MatchResolver } from './shared/services/match-resolver';
 
 const routes: Routes = [
@@ -18,7 +18,8 @@ const routes: Routes = [
         path: 'match/:name',
         component: DashboardComponent,
         resolve: {
-            match: MatchResolver
+            match: MatchResolver,
+            tournament: TournamentResolver
         }
     },
     {

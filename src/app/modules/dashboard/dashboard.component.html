@@ -14,59 +14,59 @@
             <fa-icon [icon]="faIcons.faCircle" size="1x"></fa-icon>
         </div>
     </div>
-    <div class="d-flex justify-content-center b-nrg-top text-white">
-        <h2>{{match.title}}</h2>
+    <div class="d-flex justify-content-center b-nrg-top p-1">
+        <h4 class="mb-0">{{tournament.getInfo('round')}}: <span class="text-white">{{match.title}}</span></h4>
     </div>
-    <div class="d-flex flex-grow-1 align-items-stretch position-relative b-nrg-top bg-nrg">
+    <div class="d-flex flex-grow-1 align-items-stretch position-relative b-nrg-top">
         <div class="d-flex flex-column w-50 text-center">
-            <div class="text-muted pt-5">
+            <div class="text-muted pt-icon">
                 <fa-icon [icon]="faIcons.faPlus" size="2x"></fa-icon>
             </div>
             <div class="d-flex flex-column flex-grow-1 align-items-center justify-content-center">
                 <ng-template [ngIf]="!mirrored">
-                    <h4 class="text-white mb-0">{{match.players.leftPlayer.name}}</h4>
+                    <h4 class="text-white mb-0">{{match.leftPlayer.name}}</h4>
                     <div class="font-nrg value">
-                        <span *ngIf="activeSection === 'life'">{{match.players.leftPlayer.life}}</span>
-                        <span *ngIf="activeSection === 'infect'">{{match.players.leftPlayer.infect}}</span>
-                        <span *ngIf="activeSection === 'wins'">{{match.players.leftPlayer.wins}}</span>
+                        <span *ngIf="activeSection === 'life'">{{match.leftPlayer.life}}</span>
+                        <span *ngIf="activeSection === 'infect'">{{match.leftPlayer.infect}}</span>
+                        <span *ngIf="activeSection === 'gamewins'">{{match.leftPlayer.gamewins}}</span>
                     </div>
                 </ng-template>
                 <ng-template [ngIf]="mirrored">
-                    <h4 class="text-white mb-0">{{match.players.rightPlayer.name}}</h4>
+                    <h4 class="text-white mb-0">{{match.rightPlayer.name}}</h4>
                     <div class="font-nrg value">
-                        <span *ngIf="activeSection === 'life'">{{match.players.rightPlayer.life}}</span>
-                        <span *ngIf="activeSection === 'infect'">{{match.players.rightPlayer.infect}}</span>
-                        <span *ngIf="activeSection === 'wins'">{{match.players.rightPlayer.wins}}</span>
+                        <span *ngIf="activeSection === 'life'">{{match.rightPlayer.life}}</span>
+                        <span *ngIf="activeSection === 'infect'">{{match.rightPlayer.infect}}</span>
+                        <span *ngIf="activeSection === 'gamewins'">{{match.rightPlayer.gamewins}}</span>
                     </div>
                 </ng-template>
             </div>
-            <div class="text-muted pb-5">
+            <div class="text-muted pb-icon">
                 <fa-icon [icon]="faIcons.faMinus" size="2x"></fa-icon>
             </div>
         </div>
         <div class="d-flex flex-column w-50 text-center">
-            <div class="text-muted pt-5">
+            <div class="text-muted pt-icon">
                 <fa-icon [icon]="faIcons.faPlus" size="2x"></fa-icon>
             </div>
             <div class="d-flex flex-column flex-grow-1 align-items-center justify-content-center">
                 <ng-template [ngIf]="!mirrored">
-                    <h4 class="text-white mb-0">{{match.players.rightPlayer.name}}</h4>
+                    <h4 class="text-white mb-0">{{match.rightPlayer.name}}</h4>
                     <div class="font-nrg value">
-                        <span *ngIf="activeSection === 'life'">{{match.players.rightPlayer.life}}</span>
-                        <span *ngIf="activeSection === 'infect'">{{match.players.rightPlayer.infect}}</span>
-                        <span *ngIf="activeSection === 'wins'">{{match.players.rightPlayer.wins}}</span>
+                        <span *ngIf="activeSection === 'life'">{{match.rightPlayer.life}}</span>
+                        <span *ngIf="activeSection === 'infect'">{{match.rightPlayer.infect}}</span>
+                        <span *ngIf="activeSection === 'gamewins'">{{match.rightPlayer.gamewins}}</span>
                     </div>
                 </ng-template>
                 <ng-template [ngIf]="mirrored">
-                    <h4 class="text-white mb-0">{{match.players.leftPlayer.name}}</h4>
+                    <h4 class="text-white mb-0">{{match.leftPlayer.name}}</h4>
                     <div class="font-nrg value">
-                        <span *ngIf="activeSection === 'life'">{{match.players.leftPlayer.life}}</span>
-                        <span *ngIf="activeSection === 'infect'">{{match.players.leftPlayer.infect}}</span>
-                        <span *ngIf="activeSection === 'wins'">{{match.players.leftPlayer.wins}}</span>
+                        <span *ngIf="activeSection === 'life'">{{match.leftPlayer.life}}</span>
+                        <span *ngIf="activeSection === 'infect'">{{match.leftPlayer.infect}}</span>
+                        <span *ngIf="activeSection === 'gamewins'">{{match.leftPlayer.gamewins}}</span>
                     </div>
                 </ng-template>
             </div>
-            <div class="text-muted pb-5">
+            <div class="text-muted pb-icon">
                 <fa-icon [icon]="faIcons.faMinus" size="2x"></fa-icon>
             </div>
         </div>
@@ -87,7 +87,7 @@
             </button>
         </div>
         <div>
-            <button type="button" class="btn btn-wins" (click)="activeSection = 'wins'">
+            <button type="button" class="btn btn-wins" (click)="activeSection = 'gamewins'">
                 <fa-icon [icon]="faIcons.faTrophy" size="2x"></fa-icon>
             </button>
         </div>

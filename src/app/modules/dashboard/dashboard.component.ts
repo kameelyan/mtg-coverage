@@ -12,6 +12,7 @@ import { TournamentService } from '../../shared/services/tournament.service';
 })
 export class DashboardComponent implements OnInit {
     @HostBinding('class') class = 'd-flex flex-column flex-fill';
+    tournament: Tournament;
     match: Match = null;
     activeSection: string = 'life';
     mirrored: boolean = false;
@@ -30,22 +31,22 @@ export class DashboardComponent implements OnInit {
     updateValue(side: string, value: number) {
         let player: Player;
         if (side === 'left') {
-            player = this.mirrored ? this.match.players.rightPlayer : this.match.players.leftPlayer;
+            player = this.mirrored ? this.match.rightPlayer : this.match.leftPlayer;
         } else {
-            player = this.mirrored ? this.match.players.leftPlayer : this.match.players.rightPlayer;
+            player = this.mirrored ? this.match.leftPlayer : this.match.rightPlayer;
         }
         player[this.activeSection] += value;
         this.dataChanged = true;
     }
 
     resetValues() {
-        this.match.players.leftPlayer.life = 20;
-        this.match.players.leftPlayer.infect = 0;
-        this.match.players.leftPlayer.wins = 0;
+        this.match.leftPlayer.life = 20;
+        this.match.leftPlayer.infect = 0;
+        this.match.leftPlayer.gamewins = 0;
 
-        this.match.players.rightPlayer.life = 20;
-        this.match.players.rightPlayer.infect = 0;
-        this.match.players.rightPlayer.wins = 0;
+        this.match.rightPlayer.life = 20;
+        this.match.rightPlayer.infect = 0;
+        this.match.rightPlayer.gamewins = 0;
     }
 
     onUpdate() {
@@ -61,8 +62,10 @@ export class DashboardComponent implements OnInit {
             }
         );
 
-        this.route.data.subscribe((data: { match: Match }) => {
+        this.route.data.subscribe((data: { match: Match, tournament: Tournament }) => {
+            this.tournament = new Tournament(data.tournament);
             this.match = new Match(data.match);
+            console.log(this.tournament);
             console.log(this.match);
         });
     }
