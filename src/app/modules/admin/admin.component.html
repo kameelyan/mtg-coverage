@@ -7,7 +7,36 @@
                         <input type="checkbox" class="form-check-input" name="{{match.name + '_active'}}" id="{{match.name + '_active'}}" [(ngModel)]="match.available" />
                         <label class="form-check-label" for="{{match.name + '_active'}}">Active</label>
                     </div>
-                    <fieldset [disabled]="!match.available" class="text-dark">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-outline-dark d-inline-flex align-items-center justify-content-center" (click)="toggleSideboards()">
+                            <fa-icon [icon]="faIcons.faTimes" *ngIf="showSideboard" size="2x"></fa-icon>
+                            <span class="ml-2" *ngIf="showSideboard">Hide Sideboards</span>
+                            <fa-icon [icon]="faIcons.faList" *ngIf="!showSideboard" size="2x"></fa-icon>
+                            <span class="ml-2" *ngIf="!showSideboard">Show Sideboards</span>
+                        </button>
+                    </div>
+                    <fieldset [disabled]="!match.available" class="text-dark" *ngIf="showSideboard">
+                        <div class="d-flex flex-fill">
+                            <div class="d-flex flex-column flex-grow-1 pr-2">
+                                <h3>Left Player</h3>
+                                <div class="form-group">
+                                    <label>Sideboard</label>
+                                    <textarea class="form-control" rows="15" name="leftPlayer_sideboard" [(ngModel)]="match.leftPlayer.sideboard"></textarea>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column flex-grow-1 pl-2">
+                                <h3 class="text-right">Right Player</h3>
+                                <div class="form-group">
+                                    <label class="text-right w-100">Sideboard</label>
+                                    <textarea class="form-control" rows="15" name="rightPlayer_sideboard" [(ngModel)]="match.rightPlayer.sideboard"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline-dark btn-block btn-xl font-nrg" [class.btn-update]="form.dirty" [class.btn-muted]="!form.dirty" (click)="onUpdate()">UPDATE</button>
+                        </div>
+                    </fieldset>
+                    <fieldset [disabled]="!match.available" class="text-dark" *ngIf="!showSideboard">
                         <div class="d-flex flex-fill">
                             <div class="d-flex flex-column flex-grow-1">
                                 <h3>Left Player</h3>

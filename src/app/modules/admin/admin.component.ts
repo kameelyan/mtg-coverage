@@ -15,12 +15,17 @@ export class AdminComponent implements OnInit {
     @ViewChild('form') form: NgForm;
     tournament: Tournament;
     dataChanged: boolean = false;
+    showSideboard: boolean = false;
     faIcons = new FAIcons();
 
     constructor(
         private tournamentService: TournamentService,
         private route: ActivatedRoute
     ) { }
+
+    toggleSideboards() {
+        this.showSideboard = !this.showSideboard;
+    }
 
     updateValue(player: Player, value: number) {
         player.life += value;
