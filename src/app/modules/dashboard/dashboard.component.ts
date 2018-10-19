@@ -40,13 +40,21 @@ export class DashboardComponent implements OnInit {
     }
 
     resetValues() {
-        this.match.leftPlayer.life = 20;
-        this.match.leftPlayer.infect = 0;
-        this.match.leftPlayer.gamewins = 0;
-
-        this.match.rightPlayer.life = 20;
-        this.match.rightPlayer.infect = 0;
-        this.match.rightPlayer.gamewins = 0;
+        switch (this.activeSection) {
+            case "life":
+                this.match.leftPlayer.life = 20;
+                this.match.rightPlayer.life = 20;
+                break;
+            case "infect":
+                this.match.leftPlayer.infect = 0;
+                this.match.rightPlayer.infect = 0;
+                break;
+            case "gamewins":
+                this.match.leftPlayer.gamewins = 0;
+                this.match.rightPlayer.gamewins = 0;
+                break;
+        }
+        this.dataChanged = true;
     }
 
     onUpdate() {
@@ -58,7 +66,22 @@ export class DashboardComponent implements OnInit {
 
         this.tournamentService.matchUpdate().subscribe(
             (data) => {
-                this.match = new Match(data);
+                let newMatch: Match = new Match(data);
+                if (this.match.name === newMatch.name) {
+                    this.match = newMatch;
+                }
+            }
+        );
+
+        this.tournamentService.tournamentUpdate().subscribe(
+            (data) => {
+                this.tournament = new Tournament(data);
+                let newMatch = this.tournament.matches.filter((match) => {
+                    return this.match.name === match.name;
+                }).shift();
+                if (newMatch !== undefined) {
+                    this.match = newMatch;
+                }
             }
         );
 

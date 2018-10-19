@@ -137,6 +137,11 @@ io.on('connection', function (socket) {
         saveMatch(data);
         socket.broadcast.emit('updateMatch', data);
     });
+
+    socket.on('updateTournament', function (data) {
+        writeTournament(data);
+        socket.broadcast.emit('updateTournament', data);
+    });
 });
 
 server.listen(port, function () {

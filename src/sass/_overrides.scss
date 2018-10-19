@@ -1,14 +1,21 @@
 $orange: #f36b25;
+$darkOrange: darken($orange, 10%);
 $red: #a41307;
 $green: #92bb38;
 $muted: #6c757d;
-
+$gray-300: #dee2e6;
 $body-bg: #000;
 $body-color: $orange;
 
 $list-group-bg: $body-bg;
 $list-group-action-color: $orange;
 $list-group-border-color: $orange;
-$list-group-action-hover-color: darken($orange, 10%);
+$list-group-action-hover-color: $darkOrange;
 $list-group-action-active-color: $orange;
-$list-group-action-active-bg: darken($orange, 10%);
+$list-group-action-active-bg: $darkOrange;
+
+$nav-tabs-border-color: $orange;
+$nav-tabs-link-hover-border-color: $darkOrange;
+$nav-tabs-link-active-color: #000;
+$nav-tabs-link-active-bg: $orange;
+$nav-tabs-link-active-border-color: $orange;

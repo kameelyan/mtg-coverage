@@ -44,6 +44,7 @@ export class Tournament {
 
 export class Info {
     name: string = null;
+    label: string = null;
     type: string = null;
     value: string = null;
     order: number = null;

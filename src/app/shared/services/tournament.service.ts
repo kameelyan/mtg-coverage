@@ -35,6 +35,18 @@ export class TournamentService {
         return this.http.put<Match>(this.api + '/match', match);
     }
 
+    sendTournament(tournament: Tournament) {
+        this.socket.emit('updateTournament', tournament);
+    }
+
+    tournamentUpdate() {
+        return this.socket.fromEvent('updateTournament').pipe(
+            map((data) => {
+                return data;
+            })
+        )
+    }
+
     sendMatch(match: Match) {
         this.socket.emit('updateMatch', match);
     }

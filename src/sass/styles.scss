@@ -79,7 +79,7 @@
 }
 
 .btn {
-    border: 0;
+    border-width: 0;
     font-weight: 400;
     text-align: center;
     white-space: nowrap;
@@ -127,6 +127,10 @@
             color: darken($muted, 10%) !important;
         }
     }
+
+    &.btn-outline-dark {
+        border-width: 1px;
+    }
 }
 
 .region {
@@ -155,6 +159,28 @@
     &.bottom-right {
         bottom: 0;
         right: 0;
+    }
+}
+
+.input-life {
+    height: calc(5rem + 2px);
+    font-size: 3rem;
+    width: 150px;
+    text-align: center;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+a.nav-link {
+    color: #fff;
+
+    &:hover {
+        color: $orange;
     }
 }
 
