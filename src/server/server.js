@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 const port = 5000;
 
+//const OBSDirectory = path.resolve(__dirname);
+const OBSDirectory = path.resolve('D:/NRG Stream/OBS/NRG Streaming Dashboard/DataFiles/');
 
 var ensureDirectory = function (file) {
     const dir = path.dirname(file);
@@ -33,11 +35,11 @@ var writeTournament = function (tournament) {
 };
 
 var writeOBSFiles = function (tournament) {
-    ensureDirectory(path.resolve(__dirname, 'obs/foo.txt'));
+    ensureDirectory(path.resolve(OBSDirectory, 'foo.txt'));
 
     // Tournament Info Data
     tournament.info.forEach((input) => {
-        file = path.resolve(__dirname, 'obs/' + input.name + '.txt');
+        file = path.resolve(OBSDirectory, input.name + '.txt');
         fs.writeFileSync(file, input.value, 'utf8');
     });
 
@@ -48,14 +50,14 @@ var writeOBSFiles = function (tournament) {
     });
 
     // ScoreKeeper Data
-    file = path.resolve(__dirname, 'obs/outstandingMatches.txt');
+    file = path.resolve(OBSDirectory, 'outstandingMatches.txt');
     fs.writeFileSync(file, tournament.scorekeeper.outstandingMatches, 'utf8');
 
     let i = 1;
     tournament.scorekeeper.playersToWatch.forEach((player) => {
-        file = path.resolve(__dirname, 'obs/playerToWatch' + i + 'Name.txt');
+        file = path.resolve(OBSDirectory, 'playerToWatch' + i + 'Name.txt');
         fs.writeFileSync(file, player.name, 'utf8');
-        file = path.resolve(__dirname, 'obs/playerToWatch' + i + 'Record.txt');
+        file = path.resolve(OBSDirectory, 'playerToWatch' + i + 'Record.txt');
         fs.writeFileSync(file, player.record, 'utf8');
         i++;
     });
@@ -63,9 +65,9 @@ var writeOBSFiles = function (tournament) {
     // Top 8 Data - Quarterfinals
     i = 1;
     tournament.top8.quarters.forEach((player) => {
-        file = path.resolve(__dirname, 'obs/top8Seed' + i + 'Name.txt');
+        file = path.resolve(OBSDirectory, 'top8Seed' + i + 'Name.txt');
         fs.writeFileSync(file, player.name, 'utf8');
-        file = path.resolve(__dirname, 'obs/top8Seed' + i + 'Deck.txt');
+        file = path.resolve(OBSDirectory, 'top8Seed' + i + 'Deck.txt');
         fs.writeFileSync(file, player.deck, 'utf8');
         i++;
     });
@@ -88,9 +90,9 @@ var writeOBSFiles = function (tournament) {
                 bracket = '_2vs7_';
                 break;
         }
-        file = path.resolve(__dirname, 'obs/semifinals' + bracket + 'Name.txt');
+        file = path.resolve(OBSDirectory, 'semifinals' + bracket + 'Name.txt');
         fs.writeFileSync(file, player.name, 'utf8');
-        file = path.resolve(__dirname, 'obs/semifinals' + bracket + 'Deck.txt');
+        file = path.resolve(OBSDirectory, 'semifinals' + bracket + 'Deck.txt');
         fs.writeFileSync(file, player.deck, 'utf8');
         i++;
     });
@@ -107,9 +109,9 @@ var writeOBSFiles = function (tournament) {
                 bracket = '_bottom_';
                 break;
         }
-        file = path.resolve(__dirname, 'obs/finals' + bracket + 'Name.txt');
+        file = path.resolve(OBSDirectory, 'finals' + bracket + 'Name.txt');
         fs.writeFileSync(file, player.name, 'utf8');
-        file = path.resolve(__dirname, 'obs/finals' + bracket + 'Deck.txt');
+        file = path.resolve(OBSDirectory, 'finals' + bracket + 'Deck.txt');
         fs.writeFileSync(file, player.deck, 'utf8');
         i++;
     });
@@ -120,7 +122,7 @@ var writePlayer = function (player, matchName, playerPrefix) {
     let file = '';
     const props = Object.keys(player);
     for (const prop in props) {
-        file = path.resolve(__dirname, 'obs/' + filePrefix + capFirstLetter(props[prop]) + '.txt');
+        file = path.resolve(OBSDirectory, filePrefix + capFirstLetter(props[prop]) + '.txt');
         fs.writeFileSync(file, player[props[prop]], 'utf8');
     }
 };
