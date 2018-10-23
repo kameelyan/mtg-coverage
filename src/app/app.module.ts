@@ -14,6 +14,7 @@ import { environment } from '../environments/environment.prod';
 import { AvailablePipe } from './shared/pipes/available.pipe';
 import { DisplayOrderPipe } from './shared/pipes/display-order.pipe';
 import { Top8Pipe } from './shared/pipes/top8.pipe';
+import { ScorekeeperComponent } from './modules/scorekeeper/scorekeeper.component';
 
 const config: SocketIoConfig = { url: environment.api, options: {} };
 
@@ -35,7 +36,8 @@ const config: SocketIoConfig = { url: environment.api, options: {} };
         HomeComponent,
         AvailablePipe,
         DisplayOrderPipe,
-        Top8Pipe
+        Top8Pipe,
+        ScorekeeperComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

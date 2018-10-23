@@ -8,11 +8,9 @@ import { PlayerDeck } from '../classes/tournament';
 export class Top8Pipe implements PipeTransform {
 
     transform(players: PlayerDeck[], indexA: number, indexB: number): any {
-        let results: PlayerDeck[] = [];
-        if (indexA < players.length && indexB < players.length) {
-            results = results.concat(players[indexA], players[indexB]);
-        }
-        return results;
+        return players.filter((player, index) => {
+            return (index === indexA || index === indexB);
+        });
     }
 
 }

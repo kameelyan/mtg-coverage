@@ -34,14 +34,84 @@ var writeTournament = function (tournament) {
 
 var writeOBSFiles = function (tournament) {
     ensureDirectory(path.resolve(__dirname, 'obs/foo.txt'));
+
+    // Tournament Info Data
     tournament.info.forEach((input) => {
         file = path.resolve(__dirname, 'obs/' + input.name + '.txt');
         fs.writeFileSync(file, input.value, 'utf8');
     });
 
+    // Match Data
     tournament.matches.forEach((match) => {
         writePlayer(match.leftPlayer, match.name, 'leftPlayer');
         writePlayer(match.rightPlayer, match.name, 'rightPlayer');
+    });
+
+    // ScoreKeeper Data
+    file = path.resolve(__dirname, 'obs/outstandingMatches.txt');
+    fs.writeFileSync(file, tournament.scorekeeper.outstandingMatches, 'utf8');
+
+    let i = 1;
+    tournament.scorekeeper.playersToWatch.forEach((player) => {
+        file = path.resolve(__dirname, 'obs/playerToWatch' + i + 'Name.txt');
+        fs.writeFileSync(file, player.name, 'utf8');
+        file = path.resolve(__dirname, 'obs/playerToWatch' + i + 'Record.txt');
+        fs.writeFileSync(file, player.record, 'utf8');
+        i++;
+    });
+
+    // Top 8 Data - Quarterfinals
+    i = 1;
+    tournament.top8.quarters.forEach((player) => {
+        file = path.resolve(__dirname, 'obs/top8Seed' + i + 'Name.txt');
+        fs.writeFileSync(file, player.name, 'utf8');
+        file = path.resolve(__dirname, 'obs/top8Seed' + i + 'Deck.txt');
+        fs.writeFileSync(file, player.deck, 'utf8');
+        i++;
+    });
+
+    //Top 8 Data - Semifinals
+    i = 1;
+    tournament.top8.semis.forEach((player) => {
+        let bracket = '';
+        switch (i) {
+            case 1:
+                bracket = '_1vs8_';
+                break;
+            case 2:
+                bracket = '_4vs5_';
+                break;
+            case 3:
+                bracket = '_3vs6_';
+                break;
+            case 4:
+                bracket = '_2vs7_';
+                break;
+        }
+        file = path.resolve(__dirname, 'obs/semifinals' + bracket + 'Name.txt');
+        fs.writeFileSync(file, player.name, 'utf8');
+        file = path.resolve(__dirname, 'obs/semifinals' + bracket + 'Deck.txt');
+        fs.writeFileSync(file, player.deck, 'utf8');
+        i++;
+    });
+
+    //Top 8 Data - Finals
+    i = 1;
+    tournament.top8.finals.forEach((player) => {
+        let bracket = '';
+        switch (i) {
+            case 1:
+                bracket = '_top_';
+                break;
+            case 2:
+                bracket = '_bottom_';
+                break;
+        }
+        file = path.resolve(__dirname, 'obs/finals' + bracket + 'Name.txt');
+        fs.writeFileSync(file, player.name, 'utf8');
+        file = path.resolve(__dirname, 'obs/finals' + bracket + 'Deck.txt');
+        fs.writeFileSync(file, player.deck, 'utf8');
+        i++;
     });
 };
 

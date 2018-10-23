@@ -1,0 +1,26 @@
+<div class="d-flex flex-column flex-fill wrapper align-items-center p-4">
+    <form class="d-flex flex-column bg-white p-4 scroll-y" #form="ngForm">
+        <fieldset class="text-dark">
+            <h3>Outstanding Matches</h3>
+            <div class="form-group">
+                <input type="number" name="outstandingMatches" class="form-control" [(ngModel)]="tournament.scorekeeper.outstandingMatches" />
+            </div>
+            <h3>Players to Watch</h3>
+            <div class="d-flex flex-wrap">
+                <div class="form-row w-100" *ngFor="let player of tournament.scorekeeper.playersToWatch; let i = index;">
+                    <div class="form-group col-6">
+                        <label>Player</label>
+                        <input type="text" name="player{{i}}_name" class="form-control" [(ngModel)]="player.name" />
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Record</label>
+                        <input type="text" name="player{{i}}_record" class="form-control" [(ngModel)]="player.record" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-outline-dark btn-block btn-xl font-nrg" [class.btn-update]="form.dirty" [class.btn-muted]="!form.dirty" (click)="onUpdate()">UPDATE</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

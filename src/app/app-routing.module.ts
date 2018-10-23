@@ -5,6 +5,7 @@ import { AdminComponent } from './modules/admin/admin.component';
 import { TournamentResolver } from './shared/services/tournament-resolver';
 import { HomeComponent } from './modules/home/home.component';
 import { MatchResolver } from './shared/services/match-resolver';
+import { ScorekeeperComponent } from './modules/scorekeeper/scorekeeper.component';
 
 const routes: Routes = [
     {
@@ -25,6 +26,13 @@ const routes: Routes = [
     {
         path: 'admin',
         component: AdminComponent,
+        resolve: {
+            tournament: TournamentResolver
+        }
+    },
+    {
+        path: 'scorekeeper',
+        component: ScorekeeperComponent,
         resolve: {
             tournament: TournamentResolver
         }

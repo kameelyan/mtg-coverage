@@ -269,7 +269,7 @@
                                     <div class="form-row border-b mb-3">
                                         <div class="form-group pr-2 col-6">
                                             <label>Winner of #1 and #8</label>
-                                            <select name="semis_topleft_name" class="form-control" [(ngModel)]="tournament.top8.semis[0]">
+                                            <select name="semis_topleft_name" class="form-control" [compareWith]="byName" [(ngModel)]="tournament.top8.semis[0]">
                                                 <option *ngFor="let player of tournament.top8.quarters | top8:0:7" [ngValue]="player">{{player.name}}</option>
                                             </select>
                                         </div>
@@ -281,7 +281,7 @@
                                     <div class="form-row">
                                         <div class="form-group pr-2 col-6">
                                             <label>Winner of #4 and #5</label>
-                                            <select name="semis_bottomleft_name" class="form-control" [(ngModel)]="tournament.top8.semis[1]">
+                                            <select name="semis_bottomleft_name" class="form-control" [compareWith]="byName" [(ngModel)]="tournament.top8.semis[1]">
                                                 <option *ngFor="let player of tournament.top8.quarters | top8:3:4" [ngValue]="player">{{player.name}}</option>
                                             </select>
                                         </div>
@@ -294,7 +294,7 @@
                                     <div class="form-row border-b mb-3">
                                         <div class="form-group pr-2 col-6">
                                             <label>Winner of #3 and #6</label>
-                                            <select name="semis_topright_name" class="form-control" [(ngModel)]="tournament.top8.semis[2]">
+                                            <select name="semis_topright_name" class="form-control" [compareWith]="byName" [(ngModel)]="tournament.top8.semis[2]">
                                                 <option *ngFor="let player of tournament.top8.quarters | top8:2:5" [ngValue]="player">{{player.name}}</option>
                                             </select>
                                         </div>
@@ -306,7 +306,7 @@
                                     <div class="form-row">
                                         <div class="form-group pr-2 col-6">
                                             <label>Winner of #2 and #7</label>
-                                            <select name="semis_bottomright_name" class="form-control" [(ngModel)]="tournament.top8.semis[3]">
+                                            <select name="semis_bottomright_name" class="form-control" [compareWith]="byName" [(ngModel)]="tournament.top8.semis[3]">
                                                 <option *ngFor="let player of tournament.top8.quarters | top8:1:6" [ngValue]="player">{{player.name}}</option>
                                             </select>
                                         </div>
@@ -323,7 +323,7 @@
                                     <div class="form-row border-b mb-3">
                                         <div class="form-group pr-2 col-6">
                                             <label>Winner of Top Semis</label>
-                                            <select name="finals_left_name" class="form-control" [(ngModel)]="tournament.top8.finals[0]">
+                                            <select name="finals_left_name" class="form-control" [compareWith]="byName" [(ngModel)]="tournament.top8.finals[0]">
                                                 <option *ngFor="let player of tournament.top8.semis | top8:0:1" [ngValue]="player">{{player.name}}</option>
                                             </select>
                                         </div>
@@ -335,7 +335,7 @@
                                     <div class="form-row">
                                         <div class="form-group pr-2 col-6">
                                             <label>Winner of Bottom Semis</label>
-                                            <select name="finals_right_name" class="form-control" [(ngModel)]="tournament.top8.finals[1]">
+                                            <select name="finals_right_name" class="form-control" [compareWith]="byName" [(ngModel)]="tournament.top8.finals[1]">
                                                 <option *ngFor="let player of tournament.top8.semis | top8:2:3" [ngValue]="player">{{player.name}}</option>
                                             </select>
                                         </div>

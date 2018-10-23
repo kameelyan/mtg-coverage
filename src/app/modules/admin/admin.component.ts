@@ -23,6 +23,10 @@ export class AdminComponent implements OnInit {
         private route: ActivatedRoute
     ) { }
 
+    byName(item1: any, item2: any) {
+        return item1 && item2 ? item1.name === item2.name : item1 === item2;
+    }
+
     toggleSideboards() {
         this.showSideboard = !this.showSideboard;
     }
