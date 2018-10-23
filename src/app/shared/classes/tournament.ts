@@ -51,10 +51,10 @@ export class Tournament {
 }
 
 export class Info {
-    name: string = null;
-    label: string = null;
-    type: string = null;
-    value: string = null;
+    name: string = '';
+    label: string = '';
+    type: string = '';
+    value: string = '';
     order: number = null;
 
     constructor(data?: any) {
