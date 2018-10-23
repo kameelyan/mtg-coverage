@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "concurrently --kill-others \"npm run frontend\" \"npm run backend\"",
-    "frontend": "angular-http-server -p 8080 -o",
+    "frontend": "angular-http-server -p 80 -o",
     "backend": "node server/server.js "
   },
   "private": true,

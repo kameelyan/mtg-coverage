@@ -122,5 +122,58 @@
             },
             "begin": false
         }
-    ]
+    ],
+    "scorekeeper": {
+        "outstandingMatches": 0,
+        "playersToWatch": [
+            {
+                "name": "Joe Bernal",
+                "record": "1-0"
+            },
+            {
+                "name": "Matt Hoey",
+                "record": "1-0"
+            }
+        ]
+    },
+    "top8": {
+        "quarters": [
+            {
+                "name": "Brad Brown",
+                "deck": "Goblins"
+            },
+            {
+                "name": "Mat Bimonte",
+                "deck": "Elves"
+            },
+            {
+                "name": "Eben Kinkade",
+                "deck": "Wizards"
+            },
+            {
+                "name": "Matt Ripper",
+                "deck": "Faeries"
+            },
+            {
+                "name": "Michelle Matuszyk-Brown",
+                "deck": "Dragons"
+            },
+            {
+                "name": "Norm Cohen",
+                "deck": "Angels"
+            },
+            {
+                "name": "Dakota Clark",
+                "deck": "Humans"
+            },
+            {
+                "name": "Max Khan",
+                "deck": "Slivers"
+            }
+        ],
+        "semis": [
+        ],
+        "finals": [
+        ]
+    }
 }

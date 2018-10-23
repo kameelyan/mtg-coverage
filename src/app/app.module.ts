@@ -13,6 +13,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { environment } from '../environments/environment.prod';
 import { AvailablePipe } from './shared/pipes/available.pipe';
 import { DisplayOrderPipe } from './shared/pipes/display-order.pipe';
+import { Top8Pipe } from './shared/pipes/top8.pipe';
 
 const config: SocketIoConfig = { url: environment.api, options: {} };
 
@@ -33,7 +34,8 @@ const config: SocketIoConfig = { url: environment.api, options: {} };
         AdminComponent,
         HomeComponent,
         AvailablePipe,
-        DisplayOrderPipe
+        DisplayOrderPipe,
+        Top8Pipe
     ],
     providers: [],
     bootstrap: [AppComponent]

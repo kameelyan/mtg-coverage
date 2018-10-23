@@ -184,6 +184,14 @@ a.nav-link {
     }
 }
 
+.border-b {
+    border-bottom: 1px solid #000;
+}
+
+ngb-tabset {
+    overflow-y: auto;
+}
+
 @media (max-width: 767.98px) {
     .btn-xl {
         font-size: 1rem;

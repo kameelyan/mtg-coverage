@@ -1,6 +1,8 @@
 export class Tournament {
     info: Array<Info> = [];
     matches: Array<Match> = [];
+    scorekeeper: ScoreKeeper = null;
+    top8: Top8 = null;
 
     constructor(data?: any) {
         if (data) {
@@ -25,6 +27,12 @@ export class Tournament {
                             } else {
                                 this.matches = data.matches || [];
                             }
+                            break;
+                        case 'scorekeeper':
+                            this.scorekeeper = new ScoreKeeper(data.scorekeeper);
+                            break;
+                        case 'top8':
+                            this.top8 = new Top8(data.top8);
                             break;
                         default:
                             this[props[prop]] = data[props[prop]];
@@ -97,6 +105,103 @@ export class Player {
     infect: number = 0;
     gamewins: number = 0;
     sideboard: string = '';
+
+    constructor(data?: any) {
+        if (data) {
+            const props = Object.keys(this);
+            for (const prop in props) {
+                if (data[props[prop]]) {
+                    this[props[prop]] = data[props[prop]];
+                }
+            }
+        }
+    }
+}
+
+export class ScoreKeeper {
+    outstandingMatches: number = 0;
+    playersToWatch: Array<PlayerToWatch> = [];
+
+    constructor(data?: any) {
+        if (data) {
+            const props = Object.keys(this);
+            for (const prop in props) {
+                if (data[props[prop]]) {
+                    switch (props[prop]) {
+                        case 'playersToWatch':
+                            if (Array.isArray(data.playersToWatch)) {
+                                this.playersToWatch = data.playersToWatch.map(player => {
+                                    return new PlayerToWatch(player);
+                                });
+                            } else {
+                                this.playersToWatch = data.playersToWatch || [];
+                            }
+                            break;
+                        default:
+                            this[props[prop]] = data[props[prop]];
+                    }
+                }
+            }
+        }
+        let remaining: number = 6 - this.playersToWatch.length;
+        for (let i = 0; i < remaining; i++) {
+            this.playersToWatch.push(new PlayerToWatch());
+        }
+    }
+}
+
+export class PlayerToWatch {
+    name: string = '';
+    record: string = '';
+
+    constructor(data?: any) {
+        if (data) {
+            const props = Object.keys(this);
+            for (const prop in props) {
+                if (data[props[prop]]) {
+                    this[props[prop]] = data[props[prop]];
+                }
+            }
+        }
+    }
+}
+
+export class Top8 {
+    quarters: Array<PlayerDeck> = [];
+    semis: Array<PlayerDeck> = [];
+    finals: Array<PlayerDeck> = [];
+
+    populateRemaining(round, total) {
+        let remaining: number = total - round.length;
+        for (let i = 0; i < remaining; i++) {
+            round.push(new PlayerDeck());
+        }
+    }
+
+    constructor(data?: any) {
+        if (data) {
+            const props = Object.keys(this);
+            for (const prop in props) {
+                if (data[props[prop]]) {
+                    if (Array.isArray(data.playersToWatch)) {
+                        this[props[prop]] = data[props[prop]].map(player => {
+                            return new PlayerDeck(player);
+                        });
+                    } else {
+                        this[props[prop]] = data[props[prop]] || [];
+                    }
+                }
+            }
+        }
+        this.populateRemaining(this.quarters, 8);
+        this.populateRemaining(this.semis, 4);
+        this.populateRemaining(this.finals, 2);
+    }
+}
+
+export class PlayerDeck {
+    name: string = '';
+    deck: string = '';
 
     constructor(data?: any) {
         if (data) {
