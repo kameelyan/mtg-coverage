@@ -386,7 +386,7 @@
         <!--CHAT-->
         <ngb-tab id="chat">
             <ng-template ngbTabTitle>
-                <div (click)="clearNewMessages()">Chat <span *ngIf="newMessages > 0">({{newMessages}})</span></div>
+                <div (click)="clearNewMessages()">Chat <span class="badge badge-light" *ngIf="newMessages > 0">{{newMessages}}</span></div>
             </ng-template>
             <ng-template ngbTabContent>
                 <app-chat (newMessage)="newChatMessage($event)"></app-chat>
