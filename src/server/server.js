@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+var config = require('./config');
 var path = require('path');
 var app = require('express')();
 var server = require('http').Server(app);
@@ -8,8 +9,10 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 const port = 5000;
 
-//const OBSDirectory = path.resolve(__dirname);
-const OBSDirectory = path.resolve('D:/NRG Stream/OBS/NRG Streaming Dashboard/DataFiles/');
+let OBSDirectory = path.resolve(__dirname);
+if (config.OBSDirectory) {
+    OBSDirectory = path.resolve(config.OBSDirectory);
+}
 
 var ensureDirectory = function (file) {
     const dir = path.dirname(file);
