@@ -14,10 +14,10 @@
             <fa-icon [icon]="faIcons.faCircle" size="1x"></fa-icon>
         </div>
     </div>
-    <div class="d-flex justify-content-center b-nrg-top p-1">
+    <div class="d-flex justify-content-center b-nrg-top p-1 flex-shrink-0">
         <h4 class="mb-0">{{tournament.getInfo('round')}}: <span class="text-white">{{match.title}}</span></h4>
     </div>
-    <div class="d-flex flex-grow-1 align-items-stretch position-relative b-nrg-top">
+    <div class="d-flex flex-grow-1 align-items-stretch position-relative b-nrg-top" [class.hidden]="activeSection == 'chat'">
         <div class="d-flex flex-column w-50 text-center">
             <div class="text-muted pt-icon">
                 <fa-icon [icon]="faIcons.faPlus" size="2x"></fa-icon>
@@ -75,6 +75,9 @@
         <div class="region top-right" (click)="updateValue('right', 1)"></div>
         <div class="region bottom-right" (click)="updateValue('right', -1)"></div>
     </div>
+    <div class="d-flex flex-grow-1 align-items-stretch position-relative b-nrg-top py-2" [class.hidden]="activeSection != 'chat'">
+        <app-chat (newMessage)="newChatMessage($event)"></app-chat>
+    </div>
     <div class="d-flex align-items-center justify-content-between py-2 px-5 b-nrg-top b-nrg-bottom">
         <div>
             <button type="button" class="btn btn-life" (click)="activeSection = 'life'">
@@ -89,6 +92,12 @@
         <div>
             <button type="button" class="btn btn-wins" (click)="activeSection = 'gamewins'">
                 <fa-icon [icon]="faIcons.faTrophy" size="2x"></fa-icon>
+            </button>
+        </div>
+        <div>
+            <button type="button" class="btn btn-life" (click)="activeSection = 'chat'; newMessages = 0;">
+                <fa-icon [icon]="faIcons.faComments" size="2x"></fa-icon>
+                <div *ngIf="newMessages > 0" class="badge badge-light">{{newMessages}}</div>
             </button>
         </div>
         <div>

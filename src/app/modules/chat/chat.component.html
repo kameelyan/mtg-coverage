@@ -1,0 +1,17 @@
+<div class="d-flex flex-column text-white w-100 scroll-y" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+    <div *ngFor="let message of messages" class="message m-1 px-3 py-2" [ngClass]="{'mr-5': !message.owner, 'ml-5 text-right': message.owner}">
+        <div class="small"><span class="text-red">{{message.name}}</span> <span class="text-muted"> - {{message.time}}</span></div>
+        <div>{{message.text}}</div>
+    </div>
+</div>
+<form #form="ngForm" class="d-flex p-3 mt-auto" (submit)="sendMessage()" autocomplete="off">
+    <div class="pr-2">
+        <input type="text" name="username" placeholder="Name" class="form-control" [(ngModel)]="name" />
+    </div>
+    <div class="pr-2 flex-grow-1">
+        <input type="text" name="message" placeholder="Message" class="form-control" [(ngModel)]="message" />
+    </div>
+    <div class="">
+        <button type="submit" class="btn btn-update font-nrg" [disabled]="!name || !message">Send</button>
+    </div>
+</form>

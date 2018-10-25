@@ -18,11 +18,18 @@ export class DashboardComponent implements OnInit {
     mirrored: boolean = false;
     dataChanged: boolean = false;
     faIcons = new FAIcons();
+    newMessages: number = 0;
 
     constructor(
         private tournamentService: TournamentService,
         private route: ActivatedRoute
     ) { }
+
+    newChatMessage(message) {
+        if (this.activeSection !== 'chat') {
+            this.newMessages++;
+        }
+    }
 
     swapPlayers() {
         this.mirrored = !this.mirrored;

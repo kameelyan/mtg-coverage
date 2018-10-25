@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Tournament, Match } from '../classes/tournament';
 import { Socket } from 'ngx-socket-io';
 import { map } from 'rxjs/operators';
+import { Message } from '../classes/message';
 
 @Injectable({
     providedIn: 'root'
@@ -53,6 +54,18 @@ export class TournamentService {
 
     matchUpdate() {
         return this.socket.fromEvent('updateMatch').pipe(
+            map((data) => {
+                return data;
+            })
+        )
+    }
+
+    sendChatMessage(messageData: Message) {
+        this.socket.emit('addToChat', messageData);
+    }
+
+    receiveChatMessage() {
+        return this.socket.fromEvent('addToChat').pipe(
             map((data) => {
                 return data;
             })

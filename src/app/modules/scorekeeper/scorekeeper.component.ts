@@ -13,11 +13,26 @@ export class ScorekeeperComponent implements OnInit {
     @HostBinding('class') class = 'd-flex flex-column flex-fill';
     @ViewChild('form') form: NgForm;
     tournament: Tournament;
+    newMessages = 0;
+    activeTab: any;
 
     constructor(
         private tournamentService: TournamentService,
         private route: ActivatedRoute
     ) { }
+
+    tabChange(event) {
+        this.activeTab = event['nextId'];
+        if (this.activeTab == 'chat') {
+            this.newMessages = 0;
+        }
+    }
+
+    newChatMessage(message) {
+        if (this.activeTab !== 'chat') {
+            this.newMessages++;
+        }
+    }
 
     onUpdate() {
         this.form.control.markAsPristine();

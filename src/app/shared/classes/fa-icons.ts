@@ -1,6 +1,6 @@
 import {
     faUpload, faLongArrowAltLeft, faExchangeAlt,
-    faCircle, faPlus, faMinus, faHeart, faTrophy, faUndo, faList, faTimes
+    faCircle, faPlus, faMinus, faHeart, faTrophy, faUndo, faList, faTimes, faComments
 } from '@fortawesome/free-solid-svg-icons'
 
 export class FAIcons {
@@ -15,6 +15,7 @@ export class FAIcons {
     faUndo;
     faList;
     faTimes;
+    faComments;
 
     constructor() {
         this.faUpload = faUpload;
@@ -28,5 +29,6 @@ export class FAIcons {
         this.faUndo = faUndo;
         this.faList = faList;
         this.faTimes = faTimes;
+        this.faComments = faComments;
     }
 }

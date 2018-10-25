@@ -217,6 +217,10 @@ io.on('connection', function (socket) {
         writeTournament(data);
         socket.broadcast.emit('updateTournament', data);
     });
+
+    socket.on('addToChat', function (data) {
+        socket.broadcast.emit('addToChat', data);
+    });
 });
 
 server.listen(port, function () {

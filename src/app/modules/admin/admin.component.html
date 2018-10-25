@@ -1,5 +1,5 @@
 <div class="d-flex flex-column flex-fill wrapper p-4">
-    <ngb-tabset justify="end">
+    <ngb-tabset justify="end" [destroyOnHide]="false" (tabChange)="tabChange($event)" class="scroll-y">
         <!--MATCHES-->
         <ngb-tab *ngFor="let match of tournament.matches" [title]="match.title">
             <ng-template ngbTabContent>
@@ -381,6 +381,15 @@
                         </div>
                     </fieldset>
                 </form>
+            </ng-template>
+        </ngb-tab>
+        <!--CHAT-->
+        <ngb-tab id="chat">
+            <ng-template ngbTabTitle>
+                <div (click)="clearNewMessages()">Chat <span *ngIf="newMessages > 0">({{newMessages}})</span></div>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <app-chat (newMessage)="newChatMessage($event)"></app-chat>
             </ng-template>
         </ngb-tab>
     </ngb-tabset>

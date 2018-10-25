@@ -1,6 +1,10 @@
 <div class="d-flex flex-column flex-fill wrapper align-items-center p-4">
-    <h2>{{tournament.getInfo('round')}}: <span class="text-white">Select a Match</span></h2>
+    <h2 class="text-white">{{tournament.getInfo('round')}}</h2>
     <div class="list-group w-100">
+        <a routerLink="/scorekeeper" class="list-group-item list-group-item-action text-center">
+            <h3>Scorekeeper</h3>
+            <span class="text-muted">Manage players to watch and outstanding matches</span>
+        </a>
         <ng-template ngFor let-match [ngForOf]="tournament.matches | available">
             <a routerLink="/match/{{match.name}}" class="list-group-item list-group-item-action text-center">
                 <h3>{{match.title}}</h3>

@@ -1,9 +1,11 @@
-import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild, ViewContainerRef } from '@angular/core';
 import { TournamentService } from '../../shared/services/tournament.service';
 import { ActivatedRoute } from '@angular/router';
 import { Tournament, Match, Player } from '../../shared/classes/tournament';
 import { FAIcons } from '../../shared/classes/fa-icons';
 import { NgForm } from '@angular/forms';
+import { Message } from '../../shared/classes/message';
+import { NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-admin',
@@ -17,11 +19,26 @@ export class AdminComponent implements OnInit {
     dataChanged: boolean = false;
     showSideboard: boolean = false;
     faIcons = new FAIcons();
+    newMessages = 0;
+    activeTab: any;
 
     constructor(
         private tournamentService: TournamentService,
         private route: ActivatedRoute
     ) { }
+
+    tabChange(event) {
+        this.activeTab = event['nextId'];
+        if (this.activeTab == 'chat') {
+            this.newMessages = 0;
+        }
+    }
+
+    newChatMessage(message) {
+        if (this.activeTab !== 'chat') {
+            this.newMessages++;
+        }
+    }
 
     byName(item1: any, item2: any) {
         return item1 && item2 ? item1.name === item2.name : item1 === item2;

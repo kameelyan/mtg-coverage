@@ -1,26 +1,40 @@
 <div class="d-flex flex-column flex-fill wrapper align-items-center p-4">
-    <form class="d-flex flex-column bg-white p-4 scroll-y" #form="ngForm">
-        <fieldset class="text-dark">
-            <h3>Outstanding Matches</h3>
-            <div class="form-group">
-                <input type="number" name="outstandingMatches" class="form-control" [(ngModel)]="tournament.scorekeeper.outstandingMatches" />
-            </div>
-            <h3>Players to Watch</h3>
-            <div class="d-flex flex-wrap">
-                <div class="form-row w-100" *ngFor="let player of tournament.scorekeeper.playersToWatch; let i = index;">
-                    <div class="form-group col-6">
-                        <label>Player</label>
-                        <input type="text" name="player{{i}}_name" class="form-control" [(ngModel)]="player.name" />
-                    </div>
-                    <div class="form-group col-6">
-                        <label>Record</label>
-                        <input type="text" name="player{{i}}_record" class="form-control" [(ngModel)]="player.record" />
-                    </div>
-                </div>
-            </div>
-            <div>
-                <button type="button" class="btn btn-outline-dark btn-block btn-xl font-nrg" [class.btn-update]="form.dirty" [class.btn-muted]="!form.dirty" (click)="onUpdate()">UPDATE</button>
-            </div>
-        </fieldset>
-    </form>
+    <ngb-tabset justify="end" [destroyOnHide]="false" (tabChange)="tabChange($event)" class="w-100">
+        <ngb-tab title="Score Keeper">
+            <ng-template ngbTabContent>
+                <form class="d-flex flex-column bg-white p-4 scroll-y" #form="ngForm">
+                    <fieldset class="text-dark">
+                        <h3>Outstanding Matches</h3>
+                        <div class="form-group">
+                            <input type="number" name="outstandingMatches" class="form-control" [(ngModel)]="tournament.scorekeeper.outstandingMatches" />
+                        </div>
+                        <h3>Players to Watch</h3>
+                        <div class="d-flex flex-wrap">
+                            <div class="form-row w-100" *ngFor="let player of tournament.scorekeeper.playersToWatch; let i = index;">
+                                <div class="form-group col-6">
+                                    <label>Player</label>
+                                    <input type="text" name="player{{i}}_name" class="form-control" [(ngModel)]="player.name" />
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Record</label>
+                                    <input type="text" name="player{{i}}_record" class="form-control" [(ngModel)]="player.record" />
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline-dark btn-block btn-xl font-nrg" [class.btn-update]="form.dirty" [class.btn-muted]="!form.dirty" (click)="onUpdate()">UPDATE</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="chat">
+            <ng-template ngbTabTitle>
+                <div (click)="clearNewMessages()">Chat <span *ngIf="newMessages > 0">({{newMessages}})</span></div>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <app-chat (newMessage)="newChatMessage($event)"></app-chat>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
 </div>
