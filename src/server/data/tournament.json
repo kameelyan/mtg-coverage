@@ -36,11 +36,25 @@
             "order": 500
         },
         {
+            "name": "leftcommentatortwitter",
+            "label": "Left Commentator Twitter",
+            "type": "text",
+            "value": "",
+            "order": 550
+        },
+        {
             "name": "rightcommentator",
             "label": "Right Commentator",
             "type": "text",
             "value": "",
             "order": 600
+        },
+        {
+            "name": "rightcommentatortwitter",
+            "label": "Right Commentator Twitter",
+            "type": "text",
+            "value": "",
+            "order": 650
         },
         {
             "name": "leftinterviewname",
