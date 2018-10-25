@@ -10,7 +10,7 @@
                 <fa-icon [icon]="faIcons.faSwap" size="2x"></fa-icon>
             </button>
         </div>
-        <div class="d-flex align-items-center justify-content-end text-red">
+        <div class="d-flex align-items-center justify-content-end" [ngClass]="{'text-red': !match.begin, 'text-green': match.begin}">
             <fa-icon [icon]="faIcons.faCircle" size="1x"></fa-icon>
         </div>
     </div>

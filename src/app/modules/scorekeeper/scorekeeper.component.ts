@@ -3,6 +3,7 @@ import { Tournament, Match } from '../../shared/classes/tournament';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { TournamentService } from '../../shared/services/tournament.service';
+import { FAIcons } from '../../shared/classes/fa-icons';
 
 @Component({
     selector: 'app-scorekeeper',
@@ -15,6 +16,7 @@ export class ScorekeeperComponent implements OnInit {
     tournament: Tournament;
     newMessages = 0;
     activeTab: any;
+    faIcons = new FAIcons();
 
     constructor(
         private tournamentService: TournamentService,
