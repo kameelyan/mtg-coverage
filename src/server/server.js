@@ -7,6 +7,8 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var opn = require("opn");
+
 const port = 5000;
 
 let OBSDirectory = path.resolve(__dirname);
@@ -62,6 +64,8 @@ var writeOBSFiles = function (tournament) {
         fs.writeFileSync(file, player.name, 'utf8');
         file = path.resolve(OBSDirectory, 'playerToWatch' + i + 'Record.txt');
         fs.writeFileSync(file, player.record, 'utf8');
+        file = path.resolve(OBSDirectory, 'playerToWatch' + i + 'Standing.txt');
+        fs.writeFileSync(file, player.standing, 'utf8');
         i++;
     });
 
@@ -229,5 +233,6 @@ server.listen(port, function () {
     if (fs.existsSync(path.resolve(__dirname, 'data/tournament.json'))) {
         const tournament = readTournament();
         writeOBSFiles(tournament);
+        opn("http://localhost/admin");
     }
 });

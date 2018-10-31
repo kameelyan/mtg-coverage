@@ -142,27 +142,33 @@
         "playersToWatch": [
             {
                 "name": "Joe Bernal",
-                "record": "1-0"
+                "record": "1-0",
+                "standing": "1st"
             },
             {
                 "name": "Matt Hoey",
-                "record": "1-0"
+                "record": "1-0",
+                "standing": "2nd"
             },
             {
                 "name": "Brad Brown",
-                "record": "2-0"
+                "record": "2-0",
+                "standing": "3rd"
             },
             {
                 "name": "Mat Bimonte",
-                "record": "0-97"
+                "record": "0-97",
+                "standing": "99th"
             },
             {
                 "name": "",
-                "record": ""
+                "record": "",
+                "standing": ""
             },
             {
                 "name": "",
-                "record": ""
+                "record": "",
+                "standing": ""
             }
         ]
     },

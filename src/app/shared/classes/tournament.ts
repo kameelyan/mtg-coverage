@@ -153,6 +153,7 @@ export class ScoreKeeper {
 export class PlayerToWatch {
     name: string = '';
     record: string = '';
+    standing: string = '';
 
     constructor(data?: any) {
         if (data) {
