@@ -233,6 +233,7 @@ server.listen(port, function () {
     if (fs.existsSync(path.resolve(__dirname, 'data/tournament.json'))) {
         const tournament = readTournament();
         writeOBSFiles(tournament);
+        opn("http://localhost");
         opn("http://localhost/admin");
     }
 });
