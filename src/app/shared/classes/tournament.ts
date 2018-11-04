@@ -179,6 +179,13 @@ export class Top8 {
         }
     }
 
+    clearRound(round: string) {
+        this[round].forEach(player => {
+            player.deck = '';
+            player.name = '';
+        });
+    }
+
     constructor(data?: any) {
         if (data) {
             const props = Object.keys(this);

@@ -8,6 +8,7 @@ var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var opn = require("opn");
+var argv = require("minimist")(process.argv.slice(2));
 
 const port = 5000;
 
@@ -233,7 +234,10 @@ server.listen(port, function () {
     if (fs.existsSync(path.resolve(__dirname, 'data/tournament.json'))) {
         const tournament = readTournament();
         writeOBSFiles(tournament);
-        opn("http://localhost");
-        opn("http://localhost/admin");
+
+        if (argv.o) {
+            opn("http://localhost");
+            opn("http://localhost/admin");
+        }
     }
 });

@@ -53,6 +53,19 @@ export class AdminComponent implements OnInit {
         this.form.control.markAsDirty();
     }
 
+    clearTop8(round: string) {
+        switch (round) {
+            case 'quarters':
+                this.tournament.top8.clearRound('quarters');
+            case 'semis':
+                this.tournament.top8.clearRound('semis');
+            case 'finals':
+                this.tournament.top8.clearRound('finals');
+                break;
+        }
+        this.dataChanged = true;
+    }
+
     swapPlayers(match: Match) {
         const leftPlayer: Player = new Player(match.leftPlayer);
         const rightPlayer: Player = new Player(match.rightPlayer);
@@ -71,6 +84,7 @@ export class AdminComponent implements OnInit {
     }
 
     onUpdate() {
+        this.dataChanged = false;
         this.form.control.markAsPristine();
         this.tournamentService.sendTournament(this.tournament);
     }

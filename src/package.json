@@ -4,7 +4,7 @@
   "scripts": {
     "start": "concurrently --kill-others \"npm run frontend\" \"npm run backend\"",
     "frontend": "angular-http-server -p 80",
-    "backend": "node server/server.js "
+    "backend": "node server/server.js -o"
   },
   "private": true,
   "dependencies": {
