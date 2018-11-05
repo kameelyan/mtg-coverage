@@ -9,8 +9,18 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 var opn = require("opn");
 var argv = require("minimist")(process.argv.slice(2));
+var parser = require('xml2js').parseString;
 
 const port = 5000;
+
+/*
+var xml = fs.readFileSync(path.resolve(__dirname, 'data/2018_10.wer'), 'utf8');
+parser(xml, (err, result) => {
+    result.event.participation[0].person.forEach(person => {
+        console.log(person['$'].id + " : " + person['$'].first + " " + person['$'].last);
+    });
+});
+*/
 
 let OBSDirectory = path.resolve(__dirname);
 if (config.OBSDirectory) {
