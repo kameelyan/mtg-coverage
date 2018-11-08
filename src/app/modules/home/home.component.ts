@@ -1,7 +1,6 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { Tournament, Match } from '../../shared/classes/tournament';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AvailablePipe } from '../../shared/pipes/available.pipe';
 import { TournamentService } from '../../shared/services/tournament.service';
 
 @Component({
@@ -42,11 +41,6 @@ export class HomeComponent implements OnInit {
         this.route.data.subscribe((data: { tournament: Tournament }) => {
             this.tournament = new Tournament(data.tournament);
             console.log(this.tournament);
-
-            const availableMatches = new AvailablePipe().transform(this.tournament.matches);
-            if (availableMatches.length === 1) {
-                this.router.navigate(['/match', availableMatches[0].name]);
-            }
         });
     }
 

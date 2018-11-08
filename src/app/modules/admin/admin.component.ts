@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding, ViewChild, ViewContainerRef } from '@angular/core';
 import { TournamentService } from '../../shared/services/tournament.service';
 import { ActivatedRoute } from '@angular/router';
-import { Tournament, Match, Player } from '../../shared/classes/tournament';
+import { Tournament, Match, Player, PlayerDeck, PlayerToWatch } from '../../shared/classes/tournament';
 import { FAIcons } from '../../shared/classes/fa-icons';
 import { NgForm } from '@angular/forms';
 import { Message } from '../../shared/classes/message';
@@ -40,10 +40,6 @@ export class AdminComponent implements OnInit {
         }
     }
 
-    byName(item1: any, item2: any) {
-        return item1 && item2 ? item1.name === item2.name : item1 === item2;
-    }
-
     toggleSideboards() {
         this.showSideboard = !this.showSideboard;
     }
@@ -51,6 +47,12 @@ export class AdminComponent implements OnInit {
     updateValue(player: Player, value: number) {
         player.life += value;
         this.form.control.markAsDirty();
+    }
+
+    setWinner(from: PlayerDeck, to: PlayerDeck) {
+        to.deck = from.deck;
+        to.name = from.name;
+        this.dataChanged = true;
     }
 
     clearTop8(round: string) {
@@ -64,6 +66,20 @@ export class AdminComponent implements OnInit {
                 break;
         }
         this.dataChanged = true;
+    }
+
+    movePlayerToWatch(playersToWatch: PlayerToWatch[], index) {
+        if (index !== 0) {
+            const player = new PlayerToWatch(playersToWatch[index - 1]);
+            playersToWatch[index - 1].name = playersToWatch[index].name;
+            playersToWatch[index - 1].record = playersToWatch[index].record;
+            playersToWatch[index - 1].standing = playersToWatch[index].standing;
+
+            playersToWatch[index].name = player.name;
+            playersToWatch[index].record = player.record;
+            playersToWatch[index].standing = player.standing;
+            this.dataChanged = true;
+        }
     }
 
     swapPlayers(match: Match) {

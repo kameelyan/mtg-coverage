@@ -15,7 +15,7 @@
                         </div>
                         <h3>Players to Watch</h3>
                         <div class="d-flex flex-wrap">
-                            <div class="form-row w-100" *ngFor="let player of tournament.scorekeeper.playersToWatch; let i = index;">
+                            <div class="form-row w-100" *ngFor="let player of tournament.scorekeeper.playersToWatch; let i = index; let isFirst = first;">
                                 <div class="form-group col-4">
                                     <label>Player</label>
                                     <input type="text" name="player{{i}}_name" class="form-control" [(ngModel)]="player.name" />
@@ -24,9 +24,12 @@
                                     <label>Record</label>
                                     <input type="text" name="player{{i}}_record" class="form-control" [(ngModel)]="player.record" />
                                 </div>
-                                <div class="form-group col-4">
+                                <div class="form-group col-3">
                                     <label>Standing</label>
                                     <input type="text" name="player{{i}}_standing" class="form-control" [(ngModel)]="player.standing" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-end mb-3 pl-2 col-1">
+                                    <button type="button" class="btn btn-link" *ngIf="!isFirst" (click)="movePlayerToWatch(tournament.scorekeeper.playersToWatch, i)">Up</button>
                                 </div>
                             </div>
                         </div>

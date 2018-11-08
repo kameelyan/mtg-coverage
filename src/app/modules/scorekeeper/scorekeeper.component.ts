@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
-import { Tournament, Match } from '../../shared/classes/tournament';
+import { Tournament, Match, PlayerToWatch } from '../../shared/classes/tournament';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { TournamentService } from '../../shared/services/tournament.service';
@@ -33,6 +33,20 @@ export class ScorekeeperComponent implements OnInit {
     newChatMessage(message) {
         if (this.activeTab !== 'chat') {
             this.newMessages++;
+        }
+    }
+
+    movePlayerToWatch(playersToWatch: PlayerToWatch[], index) {
+        if (index !== 0) {
+            const player = new PlayerToWatch(playersToWatch[index - 1]);
+            playersToWatch[index - 1].name = playersToWatch[index].name;
+            playersToWatch[index - 1].record = playersToWatch[index].record;
+            playersToWatch[index - 1].standing = playersToWatch[index].standing;
+
+            playersToWatch[index].name = player.name;
+            playersToWatch[index].record = player.record;
+            playersToWatch[index].standing = player.standing;
+            this.form.control.markAsDirty();
         }
     }
 

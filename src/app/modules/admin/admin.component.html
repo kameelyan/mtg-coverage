@@ -191,6 +191,13 @@
                                             <label>Deck</label>
                                             <input type="text" name="seed1_deck" class="form-control" [(ngModel)]="tournament.top8.quarters[0].deck" />
                                         </div>
+                                        <div class="d-flex flex-column justify-content-end mb-3 pl-2">
+                                            <button type="button" class="btn btn-link"
+                                                    [disabled]="!(tournament.top8.quarters[0].name.length > 0 && tournament.top8.quarters[0].deck.length > 0)"
+                                                    (click)="setWinner(tournament.top8.quarters[0], tournament.top8.semis[0])">
+                                                Winner
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group pr-2">
@@ -200,6 +207,13 @@
                                         <div class="form-group">
                                             <label>Deck</label>
                                             <input type="text" name="seed8_deck" class="form-control" [(ngModel)]="tournament.top8.quarters[7].deck" />
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-end mb-3 pl-2">
+                                            <button type="button" class="btn btn-link"
+                                                    [disabled]="!(tournament.top8.quarters[7].name.length > 0 && tournament.top8.quarters[7].deck.length > 0)"
+                                                    (click)="setWinner(tournament.top8.quarters[7], tournament.top8.semis[0])">
+                                                Winner
+                                            </button>
                                         </div>
                                     </div>
                                     <div style="height:50px"></div>
@@ -212,6 +226,13 @@
                                             <label>Deck</label>
                                             <input type="text" name="seed4_deck" class="form-control" [(ngModel)]="tournament.top8.quarters[3].deck" />
                                         </div>
+                                        <div class="d-flex flex-column justify-content-end mb-3 pl-2">
+                                            <button type="button" class="btn btn-link"
+                                                    [disabled]="!(tournament.top8.quarters[3].name.length > 0 && tournament.top8.quarters[3].deck.length > 0)"
+                                                    (click)="setWinner(tournament.top8.quarters[3], tournament.top8.semis[1])">
+                                                Winner
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group pr-2">
@@ -221,6 +242,13 @@
                                         <div class="form-group">
                                             <label>Deck</label>
                                             <input type="text" name="seed5_deck" class="form-control" [(ngModel)]="tournament.top8.quarters[4].deck" />
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-end mb-3 pl-2">
+                                            <button type="button" class="btn btn-link"
+                                                    [disabled]="!(tournament.top8.quarters[4].name.length > 0 && tournament.top8.quarters[4].deck.length > 0)"
+                                                    (click)="setWinner(tournament.top8.quarters[4], tournament.top8.semis[1])">
+                                                Winner
+                                            </button>
                                         </div>
                                     </div>
                                     <div style="height:50px"></div>
@@ -233,6 +261,13 @@
                                             <label>Deck</label>
                                             <input type="text" name="seed3_deck" class="form-control" [(ngModel)]="tournament.top8.quarters[2].deck" />
                                         </div>
+                                        <div class="d-flex flex-column justify-content-end mb-3 pl-2">
+                                            <button type="button" class="btn btn-link"
+                                                    [disabled]="!(tournament.top8.quarters[2].name.length > 0 && tournament.top8.quarters[2].deck.length > 0)"
+                                                    (click)="setWinner(tournament.top8.quarters[2], tournament.top8.semis[2])">
+                                                Winner
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group pr-2">
@@ -242,6 +277,13 @@
                                         <div class="form-group">
                                             <label>Deck</label>
                                             <input type="text" name="seed6_deck" class="form-control" [(ngModel)]="tournament.top8.quarters[5].deck" />
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-end mb-3 pl-2">
+                                            <button type="button" class="btn btn-link"
+                                                    [disabled]="!(tournament.top8.quarters[5].name.length > 0 && tournament.top8.quarters[5].deck.length > 0)"
+                                                    (click)="setWinner(tournament.top8.quarters[5], tournament.top8.semis[2])">
+                                                Winner
+                                            </button>
                                         </div>
                                     </div>
                                     <div style="height:50px"></div>
@@ -254,6 +296,13 @@
                                             <label>Deck</label>
                                             <input type="text" name="seed2_deck" class="form-control" [(ngModel)]="tournament.top8.quarters[1].deck" />
                                         </div>
+                                        <div class="d-flex flex-column justify-content-end mb-3 pl-2">
+                                            <button type="button" class="btn btn-link"
+                                                    [disabled]="!(tournament.top8.quarters[1].name.length > 0 && tournament.top8.quarters[1].deck.length > 0)"
+                                                    (click)="setWinner(tournament.top8.quarters[1], tournament.top8.semis[3])">
+                                                Winner
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group pr-2">
@@ -264,6 +313,13 @@
                                             <label>Deck</label>
                                             <input type="text" name="seed7_deck" class="form-control" [(ngModel)]="tournament.top8.quarters[6].deck" />
                                         </div>
+                                        <div class="d-flex flex-column justify-content-end mb-3 pl-2">
+                                            <button type="button" class="btn btn-link"
+                                                    [disabled]="!(tournament.top8.quarters[6].name.length > 0 && tournament.top8.quarters[6].deck.length > 0)"
+                                                    (click)="setWinner(tournament.top8.quarters[6], tournament.top8.semis[3])">
+                                                Winner
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -271,52 +327,72 @@
                                 <h5>Semifinals <button type="button" class="btn btn-link" (click)="clearTop8('semis')">Clear</button></h5>
                                 <div class="d-flex flex-column justify-content-center flex-grow-1 w-100">
                                     <div class="form-row border-b mb-3">
-                                        <div class="form-group pr-2 col-6">
+                                        <div class="form-group pr-2">
                                             <label>Winner of #1 and #8</label>
-                                            <select name="semis_topleft_name" class="form-control" [compareWith]="byName" [(ngModel)]="tournament.top8.semis[0]">
-                                                <option *ngFor="let player of tournament.top8.quarters | top8:0:7" [ngValue]="player">{{player.name}}</option>
-                                            </select>
+                                            <input type="text" name="semis_topleft_name" class="form-control-plaintext text-dark" readonly value="{{tournament.top8.semis[0].name}}" />
                                         </div>
-                                        <div class="form-group col-6">
+                                        <div class="form-group">
                                             <label>Deck</label>
                                             <input type="text" name="semis_topleft_deck" class="form-control-plaintext text-dark" readonly value="{{tournament.top8.semis[0].deck}}" />
                                         </div>
+                                        <div class="d-flex flex-column justify-content-end mb-3 pl-2">
+                                            <button type="button" class="btn btn-link"
+                                                    [disabled]="!(tournament.top8.semis[0].name.length > 0 && tournament.top8.semis[0].deck.length > 0)"
+                                                    (click)="setWinner(tournament.top8.semis[0], tournament.top8.finals[0])">
+                                                Winner
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group pr-2 col-6">
+                                        <div class="form-group pr-2">
                                             <label>Winner of #4 and #5</label>
-                                            <select name="semis_bottomleft_name" class="form-control" [compareWith]="byName" [(ngModel)]="tournament.top8.semis[1]">
-                                                <option *ngFor="let player of tournament.top8.quarters | top8:3:4" [ngValue]="player">{{player.name}}</option>
-                                            </select>
+                                            <input type="text" name="semis_bottomleft_name" class="form-control-plaintext text-dark" readonly value="{{tournament.top8.semis[1].name}}" />
                                         </div>
-                                        <div class="form-group col-6">
+                                        <div class="form-group">
                                             <label>Deck</label>
                                             <input type="text" name="semis_bottomleft_deck" class="form-control-plaintext text-dark" readonly value="{{tournament.top8.semis[1].deck}}" />
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-end mb-3 pl-2">
+                                            <button type="button" class="btn btn-link"
+                                                    [disabled]="!(tournament.top8.semis[1].name.length > 0 && tournament.top8.semis[1].deck.length > 0)"
+                                                    (click)="setWinner(tournament.top8.semis[1], tournament.top8.finals[0])">
+                                                Winner
+                                            </button>
                                         </div>
                                     </div>
                                     <div style="height:300px"></div>
                                     <div class="form-row border-b mb-3">
-                                        <div class="form-group pr-2 col-6">
+                                        <div class="form-group pr-2">
                                             <label>Winner of #3 and #6</label>
-                                            <select name="semis_topright_name" class="form-control" [compareWith]="byName" [(ngModel)]="tournament.top8.semis[2]">
-                                                <option *ngFor="let player of tournament.top8.quarters | top8:2:5" [ngValue]="player">{{player.name}}</option>
-                                            </select>
+                                            <input type="text" name="semis_topright_name" class="form-control-plaintext text-dark" readonly value="{{tournament.top8.semis[2].name}}" />
                                         </div>
-                                        <div class="form-group col-6">
+                                        <div class="form-group">
                                             <label>Deck</label>
                                             <input type="text" name="semis_topright_deck" class="form-control-plaintext text-dark" readonly value="{{tournament.top8.semis[2].deck}}" />
                                         </div>
+                                        <div class="d-flex flex-column justify-content-end mb-3 pl-2">
+                                            <button type="button" class="btn btn-link"
+                                                    [disabled]="!(tournament.top8.semis[2].name.length > 0 && tournament.top8.semis[2].deck.length > 0)"
+                                                    (click)="setWinner(tournament.top8.semis[2], tournament.top8.finals[1])">
+                                                Winner
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group pr-2 col-6">
+                                        <div class="form-group pr-2">
                                             <label>Winner of #2 and #7</label>
-                                            <select name="semis_bottomright_name" class="form-control" [compareWith]="byName" [(ngModel)]="tournament.top8.semis[3]">
-                                                <option *ngFor="let player of tournament.top8.quarters | top8:1:6" [ngValue]="player">{{player.name}}</option>
-                                            </select>
+                                            <input type="text" name="semis_bottomright_name" class="form-control-plaintext text-dark" readonly value="{{tournament.top8.semis[3].name}}" />
                                         </div>
-                                        <div class="form-group col-6">
+                                        <div class="form-group">
                                             <label>Deck</label>
                                             <input type="text" name="semis_bottomright_deck" class="form-control-plaintext text-dark" readonly value="{{tournament.top8.semis[3].deck}}" />
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-end mb-3 pl-2">
+                                            <button type="button" class="btn btn-link"
+                                                    [disabled]="!(tournament.top8.semis[3].name.length > 0 && tournament.top8.semis[3].deck.length > 0)"
+                                                    (click)="setWinner(tournament.top8.semis[3], tournament.top8.finals[1])">
+                                                Winner
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -327,9 +403,7 @@
                                     <div class="form-row border-b mb-3">
                                         <div class="form-group pr-2 col-6">
                                             <label>Winner of Top Semis</label>
-                                            <select name="finals_left_name" class="form-control" [compareWith]="byName" [(ngModel)]="tournament.top8.finals[0]">
-                                                <option *ngFor="let player of tournament.top8.semis | top8:0:1" [ngValue]="player">{{player.name}}</option>
-                                            </select>
+                                            <input type="text" name="finals_left_name" class="form-control-plaintext text-dark" readonly value="{{tournament.top8.finals[0].name}}" />
                                         </div>
                                         <div class="form-group col-6">
                                             <label>Deck</label>
@@ -339,9 +413,7 @@
                                     <div class="form-row">
                                         <div class="form-group pr-2 col-6">
                                             <label>Winner of Bottom Semis</label>
-                                            <select name="finals_right_name" class="form-control" [compareWith]="byName" [(ngModel)]="tournament.top8.finals[1]">
-                                                <option *ngFor="let player of tournament.top8.semis | top8:2:3" [ngValue]="player">{{player.name}}</option>
-                                            </select>
+                                            <input type="text" name="finals_right_name" class="form-control-plaintext text-dark" readonly value="{{tournament.top8.finals[1].name}}" />
                                         </div>
                                         <div class="form-group col-6">
                                             <label>Deck</label>
@@ -369,7 +441,7 @@
                         </div>
                         <h3>Players to Watch</h3>
                         <div class="d-flex flex-wrap">
-                            <div class="form-row w-100" *ngFor="let player of tournament.scorekeeper.playersToWatch; let i = index;">
+                            <div class="form-row w-100" *ngFor="let player of tournament.scorekeeper.playersToWatch; let i = index; let isFirst = first;">
                                 <div class="form-group col-4">
                                     <label>Player</label>
                                     <input type="text" name="player{{i}}_name" class="form-control" [(ngModel)]="player.name" />
@@ -378,9 +450,12 @@
                                     <label>Record</label>
                                     <input type="text" name="player{{i}}_record" class="form-control" [(ngModel)]="player.record" />
                                 </div>
-                                <div class="form-group col-4">
+                                <div class="form-group col-3">
                                     <label>Standing</label>
                                     <input type="text" name="player{{i}}_standing" class="form-control" [(ngModel)]="player.standing" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-end mb-3 pl-2 col-1">
+                                    <button type="button" class="btn btn-link" *ngIf="!isFirst" (click)="movePlayerToWatch(tournament.scorekeeper.playersToWatch, i)">Up</button>
                                 </div>
                             </div>
                         </div>
