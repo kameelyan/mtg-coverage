@@ -25,4 +25,11 @@ export class ScryfallService {
         console.log(url);
         return this.http.post<{}>(this.api + '/cardImage', data);
     }
+
+    getListOfCards(list) {
+        const data = {
+            identifiers: list
+        };
+        return this.http.post<{}>('https://api.scryfall.com/cards/collection', data);
+    }
 }

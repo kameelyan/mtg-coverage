@@ -24,9 +24,11 @@ export class AdminComponent implements OnInit {
     faIcons = new FAIcons();
     newMessages = 0;
     activeTab: any;
-    cardNames: any;
+    cardNames: string[];
     selectedCard: string;
     selectedImage: any;
+    parsedDeck: any;
+    visualDeck: any;
 
     constructor(
         private tournamentService: TournamentService,
@@ -133,6 +135,27 @@ export class AdminComponent implements OnInit {
                 );
             }
         );
+    }
+
+    getVisualDeck() {
+        //console.log(this.visualDeck.split('\n'));
+        const expression = /^(\d{1,2})x? (.*)$/;
+        const list = this.visualDeck.split('\n').map(line => {
+            let name: string = line.replace(expression, '$2');
+            if (/(\/{1})/.test(name)) {
+                name = name.replace('/', '//');
+            }
+            return {
+                number: line.replace(expression, '$1'),
+                name: name
+            };
+        });
+        const identifiers = list.map(card => {
+            if (card.name.length > 0) {
+                return { name: card.name };
+            }
+        });
+        this.scryFall.getListOfCards(identifiers).subscribe(data => console.log(data));
     }
 
     ngOnInit() {
