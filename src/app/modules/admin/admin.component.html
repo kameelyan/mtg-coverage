@@ -475,5 +475,19 @@
                 <app-chat (newMessage)="newChatMessage($event)"></app-chat>
             </ng-template>
         </ngb-tab>
+        <ngb-tab title="Card Search">
+            <ng-template ngbTabContent>
+                <form class="d-flex flex-column bg-white p-4" #form="ngForm">
+                    <div class="form-group">
+                        <label>Search for a card:</label>
+                        <input *ngIf="cardNames" name="cardSearch" type="text" class="form-control" [(ngModel)]="selectedCard" [ngbTypeahead]="searchCards" />
+                    </div>
+                    <button type="button" class="btn btn-link" (click)="getCardImage()" [disabled]="!selectedCard">Get Card</button>
+                    <div *ngIf="selectedImage">
+                        <img src="{{selectedImage}}" />
+                    </div>
+                </form>
+            </ng-template>
+        </ngb-tab>
     </ngb-tabset>
 </div>

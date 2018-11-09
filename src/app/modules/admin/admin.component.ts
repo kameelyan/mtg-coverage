@@ -6,6 +6,9 @@ import { FAIcons } from '../../shared/classes/fa-icons';
 import { NgForm } from '@angular/forms';
 import { Message } from '../../shared/classes/message';
 import { NgbTabset } from '@ng-bootstrap/ng-bootstrap';
+import { ScryfallService } from '../../shared/services/scryfall.service';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-admin',
@@ -21,10 +24,14 @@ export class AdminComponent implements OnInit {
     faIcons = new FAIcons();
     newMessages = 0;
     activeTab: any;
+    cardNames: any;
+    selectedCard: string;
+    selectedImage: any;
 
     constructor(
         private tournamentService: TournamentService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private scryFall: ScryfallService
     ) { }
 
     tabChange(event) {
@@ -105,6 +112,29 @@ export class AdminComponent implements OnInit {
         this.tournamentService.sendTournament(this.tournament);
     }
 
+    searchCards = (query: Observable<string>) => {
+        return query.pipe(
+            debounceTime(200),
+            distinctUntilChanged(),
+            map(term => {
+                return term.length < 2 ? [] : this.cardNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10);
+            })
+        );
+    };
+
+    getCardImage() {
+        this.scryFall.getCardByName(this.selectedCard).subscribe(
+            (data) => {
+                this.scryFall.getCardImage(data['image_uris'].normal).subscribe(
+                    (image) => {
+                        console.log(image);
+                        this.selectedImage = 'server/' + image['file'];
+                    }
+                );
+            }
+        );
+    }
+
     ngOnInit() {
         this.tournamentService.matchUpdate().subscribe(
             (data) => {
@@ -129,5 +159,12 @@ export class AdminComponent implements OnInit {
             this.tournament = new Tournament(data.tournament);
             console.log(this.tournament);
         });
+
+        this.scryFall.getCardNames().subscribe(
+            (data) => {
+                this.cardNames = data['data'];
+                console.log(this.cardNames);
+            }
+        );
     }
 }

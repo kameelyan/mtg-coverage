@@ -10,6 +10,7 @@ var fs = require('fs');
 var opn = require("opn");
 var argv = require("minimist")(process.argv.slice(2));
 var parser = require('xml2js').parseString;
+var request = require('request');
 
 const port = 5000;
 
@@ -21,6 +22,15 @@ parser(xml, (err, result) => {
     });
 });
 */
+
+var download = function (uri, filename, callback) {
+    request.head(uri, function (err, res, body) {
+        console.log('content-type:', res.headers['content-type']);
+        console.log('content-length:', res.headers['content-length']);
+
+        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+    });
+};
 
 let OBSDirectory = path.resolve(__dirname);
 if (config.OBSDirectory) {
@@ -181,6 +191,17 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
+
+app.post('/api/cardImage', (req, res) => {
+    const url = req.body['url'];
+    const filename = 'data/images/example.jpg';
+    const file = path.resolve(__dirname, filename);
+    ensureDirectory(file);
+
+    download(url, file, function () {
+        res.send({ file: filename });
+    });
+});
 
 app.get('/api/tournament', (req, res) => {
     res.send(readTournament());
