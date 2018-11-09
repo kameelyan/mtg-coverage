@@ -29,6 +29,8 @@ export class AdminComponent implements OnInit {
     selectedImage: any;
     parsedDeck: any;
     visualDeck: any;
+    visualMainDeck: Array<string> = [];
+    visualSideBoard: Array<string> = [];
 
     constructor(
         private tournamentService: TournamentService,
@@ -174,6 +176,7 @@ export class AdminComponent implements OnInit {
                         result: data['data'][index]
                     };
                 });
+                let mainBoard = true;
                 let final = list.map(card => {
                     let data = {
                         number: card.number,
@@ -181,7 +184,8 @@ export class AdminComponent implements OnInit {
                         image: null,
                         size: 'small',
                         id: null,
-                        url: null
+                        url: null,
+                        mainboard: mainBoard
                     };
                     if (card.name.length > 0) {
                         let scryCard = merged.filter(data => {
@@ -189,14 +193,26 @@ export class AdminComponent implements OnInit {
                         }).shift();
                         data.id = scryCard.result['id'];
                         data.url = scryCard.result['image_uris'].small;
+                    } else {
+                        mainBoard = false;
                     }
                     return data;
                 });
+
+                this.visualMainDeck = [];
+                this.visualSideBoard = [];
                 final.forEach(card => {
                     if (card.name.length > 0) {
                         this.scryFall.getCardImage(card).subscribe(
                             (data) => {
                                 card.image = data['src'];
+                                for (let i = 1; i <= card.number; i++) {
+                                    if (card.mainboard) {
+                                        this.visualMainDeck.push(card.image);
+                                    } else {
+                                        this.visualSideBoard.push(card.image);
+                                    }
+                                }
                             }
                         );
                     }

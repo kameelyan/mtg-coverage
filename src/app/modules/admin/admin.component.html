@@ -499,9 +499,9 @@
                         <textarea *ngIf="cardNames" name="visualDeck" type="text" class="form-control" [(ngModel)]="visualDeck"></textarea>
                     </div>
                     <button type="button" class="btn btn-link" (click)="getVisualDeck()" [disabled]="!visualDeck">Load Visual</button>
-                    <div *ngIf="parsedDeck">
-                        <div *ngFor="let card of parsedDeck">
-                            <img src="data:image/jpeg;base64,{{card.image}}" />
+                    <div *ngIf="visualMainDeck">
+                        <div *ngFor="let card of visualMainDeck">
+                            <img src="data:image/jpeg;base64,{{card}}" />
                         </div>
                     </div>
                 </form>
