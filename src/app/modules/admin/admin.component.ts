@@ -130,7 +130,8 @@ export class AdminComponent implements OnInit {
                 console.log(data);
                 const request = {
                     url: data['image_uris'].normal,
-                    id: data['id']
+                    id: data['id'],
+                    size: 'normal'
                 };
 
                 this.scryFall.getCardImage(request).subscribe(
@@ -178,6 +179,7 @@ export class AdminComponent implements OnInit {
                         number: card.number,
                         name: card.name,
                         image: null,
+                        size: 'small',
                         id: null,
                         url: null
                     };
@@ -186,7 +188,7 @@ export class AdminComponent implements OnInit {
                             return data.query === card.name;
                         }).shift();
                         data.id = scryCard.result['id'];
-                        data.url = scryCard.result['image_uris'].normal;
+                        data.url = scryCard.result['image_uris'].small;
                     }
                     return data;
                 });

@@ -204,7 +204,7 @@ var loadImageFile = function (file) {
 
 app.post('/api/cardImage', (req, res) => {
 
-    let file = ImagesDirectory + '/' + req.body['id'] + '.jpg';
+    let file = ImagesDirectory + '/' + req.body['id'] + '_' + req.body['size'] + '.jpg';
     ensureDirectory(file);
     if (fs.existsSync(file)) {
         res.send({ src: loadImageFile(file) });
