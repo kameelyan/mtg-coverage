@@ -143,9 +143,8 @@ export class AdminComponent implements OnInit {
     }
 
     getVisualDeck() {
-        //console.log(this.visualDeck.split('\n'));
         const expression = /^(\d{1,2})x? (.*)$/;
-        const list = this.visualDeck.split('\n').map(line => {
+        const list = this.visualDeck.trim().split('\n').map(line => {
             let name: string = line.replace(expression, '$2');
             if (/(\/{1})/.test(name)) {
                 name = name.replace('/', '//');
@@ -155,15 +154,52 @@ export class AdminComponent implements OnInit {
                 name: name
             };
         });
-        const identifiers = list.map(card => {
+        let reduced: string[] = [];
+        list.forEach(card => {
             if (card.name.length > 0) {
-                return { name: card.name };
+                if (!reduced.includes(card.name)) {
+                    reduced.push(card.name);
+                }
             }
+        });
+        const identifiers = reduced.map(card => {
+            return { name: card };
         });
         this.scryFall.getListOfCards(identifiers).subscribe(
             (data) => {
-                console.log(data);
-                data['data'].forEach(card => console.log(card['name']));
+                let merged = reduced.map((name, index) => {
+                    return {
+                        query: name,
+                        result: data['data'][index]
+                    };
+                });
+                let final = list.map(card => {
+                    let data = {
+                        number: card.number,
+                        name: card.name,
+                        image: null,
+                        id: null,
+                        url: null
+                    };
+                    if (card.name.length > 0) {
+                        let scryCard = merged.filter(data => {
+                            return data.query === card.name;
+                        }).shift();
+                        data.id = scryCard.result['id'];
+                        data.url = scryCard.result['image_uris'].normal;
+                    }
+                    return data;
+                });
+                final.forEach(card => {
+                    if (card.name.length > 0) {
+                        this.scryFall.getCardImage(card).subscribe(
+                            (data) => {
+                                card.image = data['src'];
+                            }
+                        );
+                    }
+                });
+                this.parsedDeck = final;
             }
         );
 
@@ -197,7 +233,6 @@ export class AdminComponent implements OnInit {
         this.scryFall.getCardNames().subscribe(
             (data) => {
                 this.cardNames = data['data'];
-                console.log(this.cardNames);
             }
         );
     }

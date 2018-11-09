@@ -491,7 +491,7 @@
             </ng-template>
         </ngb-tab>
         <!--VISUAL LIST-->
-        <ngb-tab title="Visiual Decklist">
+        <ngb-tab title="Visual Decklist">
             <ng-template ngbTabContent>
                 <form class="d-flex flex-column bg-white p-4" #form="ngForm">
                     <div class="form-group">
@@ -500,7 +500,9 @@
                     </div>
                     <button type="button" class="btn btn-link" (click)="getVisualDeck()" [disabled]="!visualDeck">Load Visual</button>
                     <div *ngIf="parsedDeck">
-                        {{parsedDeck}}
+                        <div *ngFor="let card of parsedDeck">
+                            <img src="data:image/jpeg;base64,{{card.image}}" />
+                        </div>
                     </div>
                 </form>
             </ng-template>
