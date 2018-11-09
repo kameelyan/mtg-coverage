@@ -485,7 +485,7 @@
                     </div>
                     <button type="button" class="btn btn-link" (click)="getCardImage()" [disabled]="!selectedCard">Get Card</button>
                     <div *ngIf="selectedImage">
-                        <img src="{{selectedImage}}" />
+                        <img src="data:image/jpeg;base64,{{selectedImage}}" />
                     </div>
                 </form>
             </ng-template>

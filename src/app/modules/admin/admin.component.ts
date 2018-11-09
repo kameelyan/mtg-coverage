@@ -127,10 +127,15 @@ export class AdminComponent implements OnInit {
     getCardImage() {
         this.scryFall.getCardByName(this.selectedCard).subscribe(
             (data) => {
-                this.scryFall.getCardImage(data['image_uris'].normal).subscribe(
-                    (image) => {
-                        console.log(image);
-                        this.selectedImage = 'server/' + image['file'];
+                console.log(data);
+                const request = {
+                    url: data['image_uris'].normal,
+                    id: data['id']
+                };
+
+                this.scryFall.getCardImage(request).subscribe(
+                    (data) => {
+                        this.selectedImage = data['src'];
                     }
                 );
             }
@@ -155,7 +160,13 @@ export class AdminComponent implements OnInit {
                 return { name: card.name };
             }
         });
-        this.scryFall.getListOfCards(identifiers).subscribe(data => console.log(data));
+        this.scryFall.getListOfCards(identifiers).subscribe(
+            (data) => {
+                console.log(data);
+                data['data'].forEach(card => console.log(card['name']));
+            }
+        );
+
     }
 
     ngOnInit() {

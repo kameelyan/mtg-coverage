@@ -20,9 +20,7 @@ export class ScryfallService {
         return this.http.get<{}>('https://api.scryfall.com/cards/named?exact=' + name);
     }
 
-    getCardImage(url: string) {
-        const data = { url: url };
-        console.log(url);
+    getCardImage(data) {
         return this.http.post<{}>(this.api + '/cardImage', data);
     }
 

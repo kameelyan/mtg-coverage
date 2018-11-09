@@ -23,18 +23,14 @@ parser(xml, (err, result) => {
 });
 */
 
-var download = function (uri, filename, callback) {
-    request.head(uri, function (err, res, body) {
-        console.log('content-type:', res.headers['content-type']);
-        console.log('content-length:', res.headers['content-length']);
-
-        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-    });
-};
-
 let OBSDirectory = path.resolve(__dirname);
 if (config.OBSDirectory) {
     OBSDirectory = path.resolve(config.OBSDirectory);
+}
+
+let ImagesDirectory = path.resolve(__dirname, 'data/images');
+if (config.ImagesDirectory) {
+    ImagesDirectory = path.resolve(config.ImagesDirectory);
 }
 
 var ensureDirectory = function (file) {
@@ -192,15 +188,31 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.post('/api/cardImage', (req, res) => {
-    const url = req.body['url'];
-    const filename = 'data/images/example.jpg';
-    const file = path.resolve(__dirname, filename);
-    ensureDirectory(file);
+var download = function (uri, filename, callback) {
+    request.head(uri, function (err, res, body) {
+        console.log('content-type:', res.headers['content-type']);
+        console.log('content-length:', res.headers['content-length']);
 
-    download(url, file, function () {
-        res.send({ file: filename });
+        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
     });
+};
+
+var loadImageFile = function (file) {
+    const bitmap = fs.readFileSync(file);
+    return new Buffer(bitmap).toString('base64');
+};
+
+app.post('/api/cardImage', (req, res) => {
+
+    let file = ImagesDirectory + '/' + req.body['id'] + '.jpg';
+    ensureDirectory(file);
+    if (fs.existsSync(file)) {
+        res.send({ src: loadImageFile(file) });
+    } else {
+        download(req.body['url'], file, function () {
+            res.send({ src: loadImageFile(file) });
+        });
+    }
 });
 
 app.get('/api/tournament', (req, res) => {
