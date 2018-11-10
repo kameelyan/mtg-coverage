@@ -1,0 +1,40 @@
+.mtg-mat {
+    margin: 0 20px;
+}
+.mtg-mainboard {
+    width: 1240px;
+    margin-right: 100px;
+}
+.mtg-pile {
+    display: inline-block;
+    position: relative;
+    width: 146px;
+    height: 300px;
+    margin: 0 4px;
+}
+.mtg-card {
+}
+.mtg-border-fix {
+    border-radius: 4.75% / 3.5%;
+    display: inline-block;
+    line-height: 0;
+    overflow: hidden;
+}
+
+@for $i from 0 through 14 {
+    .pile-card-#{$i} {
+        z-index: $i + 1;
+        top: $i * 30px;
+    }
+
+    .pile-card-sideboard-#{$i} {
+        z-index: $i + 1;
+        top: $i * 30px;
+    }
+
+    @if $i % 2 == 1 {
+        .pile-card-sideboard-#{$i} {
+            left: 30px;
+        }
+    }
+}

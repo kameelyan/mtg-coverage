@@ -1,19 +1,26 @@
 <form #form="ngForm">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-2">
-                <div class="form-group">
-                    <label>Decklist</label>
-                    <textarea name="decklist" type="text" class="form-control" rows="30" [(ngModel)]="decklist"></textarea>
-                </div>
-                <button type="button" class="btn btn-primary" (click)="getVisualDeck()" [disabled]="!decklist">Generate</button>
+            <div class="col text-center">
+                <h1>Visual Decklist Generator</h1>
             </div>
-            <div class="col-10">
-                <div *ngIf="dataLoaded">
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="deckname" class="form-control" [(ngModel)]="deckname" />
+                </div>
+                <div class="form-group">
+                    <label>List</label>
+                    <textarea name="decklist" type="text" class="form-control" rows="25" [(ngModel)]="decklist"></textarea>
+                </div>
+                <button type="button" class="btn btn-primary" (click)="getVisualDeck()" [disabled]="!(decklist && deckname)">Generate</button>
+            </div>
+            <div class="col-9 d-flex flex-fill align-items-center justify-content-center">
+                <div *ngIf="dataLoaded" class="text-center">
                     <h1>Decklist Loaded</h1>
-                    <div *ngFor="let card of cardList | mainboard">
-                        {{card.name}}
-                    </div>
+                    <a href="/visualview" target="_blank">View Deck</a>
                 </div>
             </div>
         </div>

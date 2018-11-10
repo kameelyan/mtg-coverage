@@ -125,10 +125,10 @@ export class AdminComponent implements OnInit {
     getCardImage() {
         this.scryFall.getCardByName(this.selectedCard).subscribe(
             (data) => {
-                console.log(data);
                 const request = {
-                    url: data['image_uris'].png,
-                    id: data['id']
+                    url: data['image_uris']['normal'],
+                    id: data['id'],
+                    size: 'normal'
                 };
 
                 this.scryFall.getCardImage(request).subscribe(

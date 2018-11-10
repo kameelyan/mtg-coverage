@@ -1,5 +1,20 @@
-<div *ngIf="dataLoaded" class="d-flex flex-fill flex-wrap">
-    <div *ngFor="let card of cardList | mainboard">
-        <img src="data:image/png;base64,{{card.image}}" width="146" />
+<div *ngIf="dataLoaded" class="mtg-mat d-flex">
+    <div class="mtg-mainboard">
+        <div *ngFor="let pile of cardList | mainboard | piles" class="mtg-pile">
+            <div *ngFor="let card of pile; let index = index;" class="mtg-card position-absolute pile-card-{{index}}">
+                <div class="mtg-border-fix">
+                    <img src="data:image/jpeg;base64,{{card.image}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mtg-sideboard">
+        <div *ngFor="let pile of cardList | sideboard | piles:15" class="mtg-pile">
+            <div *ngFor="let card of pile; let index = index;" class="mtg-card position-absolute pile-card-sideboard-{{index}}">
+                <div class="mtg-border-fix">
+                    <img src="data:image/jpeg;base64,{{card.image}}" />
+                </div>
+            </div>
+        </div>
     </div>
 </div>

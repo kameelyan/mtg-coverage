@@ -72,9 +72,8 @@ export class TournamentService {
         )
     }
 
-    saveVisualList(cardList: Card[]): Observable<Card[]> {
-        console.log('save');
-        return this.http.put<any>(this.api + '/visuallist', cardList);
+    saveVisualList(cardList: Card[], deckname: string): Observable<Card[]> {
+        return this.http.put<any>(this.api + '/visuallist', { cardList: cardList, name: deckname });
     }
 
     getVisualList(): Observable<Card[]> {

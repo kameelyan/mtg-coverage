@@ -19,6 +19,8 @@ import { ChatComponent } from './modules/chat/chat.component';
 import { VisualDeckComponent } from './modules/visual-deck/visual-deck.component';
 import { MainboardPipe } from './shared/pipes/mainboard.pipe';
 import { VisualViewComponent } from './modules/visual-view/visual-view.component';
+import { PilesPipe } from './shared/pipes/piles.pipe';
+import { SideboardPipe } from './shared/pipes/sideboard.pipe';
 
 const config: SocketIoConfig = { url: environment.api, options: {} };
 
@@ -45,7 +47,9 @@ const config: SocketIoConfig = { url: environment.api, options: {} };
         ChatComponent,
         VisualDeckComponent,
         MainboardPipe,
-        VisualViewComponent
+        VisualViewComponent,
+        PilesPipe,
+        SideboardPipe
     ],
     providers: [],
     bootstrap: [AppComponent]

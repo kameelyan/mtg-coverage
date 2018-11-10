@@ -21,13 +21,15 @@ export class VisualViewComponent implements OnInit {
     ) { }
 
     updateCardImages() {
+        this.dataLoaded = false;
         let allImages = [];
         this.cardList.forEach(card => {
             let length = allImages.filter(existing => { return card.id === existing.id }).length;
             if (length === 0) {
                 allImages.push({
                     id: card.id,
-                    url: card.url
+                    url: card.url,
+                    size: 'small'
                 });
             }
         });

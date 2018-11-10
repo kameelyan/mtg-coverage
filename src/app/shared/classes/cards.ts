@@ -7,6 +7,7 @@ export class Card {
     cmc: number = 0;
     id: string = null;
     url: string = null;
+    size: string = 'small';
 
     constructor(data?: any) {
         if (data) {
@@ -28,6 +29,9 @@ export class Card {
         }
         if (this.type.includes('Instant') || this.type.includes('Sorcery')) {
             return 2;
+        }
+        if (this.type.includes('Enchantment')) {
+            return 1;
         }
         if (this.type.includes('Land')) {
             return 0;

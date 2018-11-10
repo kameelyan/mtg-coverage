@@ -12,6 +12,7 @@ import { TournamentService } from '../../shared/services/tournament.service';
 export class VisualDeckComponent implements OnInit {
     @HostBinding('class') class = 'd-flex flex-column flex-fill';
     decklist: string;
+    deckname: string;
     cardNames: string[];
     cardList: Array<Card> = [];
     dataLoaded = false;
@@ -62,10 +63,14 @@ export class VisualDeckComponent implements OnInit {
                         card.type = scryfall['type_line'];
                         card.cmc = scryfall['cmc'];
                         card.id = scryfall['id'];
-                        card.url = scryfall['image_uris']['png'];
+                        if (scryfall['card_faces'] && scryfall['card_faces'].length > 0 && (scryfall['layout'] == 'transform')) {
+                            card.url = scryfall['card_faces'][0]['image_uris']['small'];
+                        } else {
+                            card.url = scryfall['image_uris']['small'];
+                        }
                     });
                     this.dataLoaded = true;
-                    this.tournamentService.saveVisualList(this.cardList).subscribe();
+                    this.tournamentService.saveVisualList(this.cardList, this.deckname).subscribe();
                 }
             }
         );
