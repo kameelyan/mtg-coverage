@@ -64,9 +64,9 @@ export class VisualDeckComponent implements OnInit {
                         card.cmc = scryfall['cmc'];
                         card.id = scryfall['id'];
                         if (scryfall['card_faces'] && scryfall['card_faces'].length > 0 && (scryfall['layout'] == 'transform')) {
-                            card.url = scryfall['card_faces'][0]['image_uris']['small'];
+                            card.url = scryfall['card_faces'][0]['image_uris']['normal'];
                         } else {
-                            card.url = scryfall['image_uris']['small'];
+                            card.url = scryfall['image_uris']['normal'];
                         }
                     });
                     this.dataLoaded = true;

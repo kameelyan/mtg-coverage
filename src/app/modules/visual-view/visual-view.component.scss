@@ -15,10 +15,14 @@
 .mtg-card {
 }
 .mtg-border-fix {
-    border-radius: 4.75% / 3.5%;
+    border-radius: 10px;
     display: inline-block;
     line-height: 0;
     overflow: hidden;
+
+    img {
+        width: 146px;
+    }
 }
 
 @for $i from 0 through 14 {

@@ -29,7 +29,7 @@ export class VisualViewComponent implements OnInit {
                 allImages.push({
                     id: card.id,
                     url: card.url,
-                    size: 'small'
+                    size: 'normal'
                 });
             }
         });
@@ -41,7 +41,7 @@ export class VisualViewComponent implements OnInit {
             (images) => {
                 this.cardList.forEach(card => {
                     let image = images.filter(image => image['id'] === card.id).shift();
-                    card.image = image['src'];
+                    card.image = 'data:image/jpeg;base64,' + image['src'];
                 });
                 this.dataLoaded = true;
             }

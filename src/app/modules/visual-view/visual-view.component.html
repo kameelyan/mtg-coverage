@@ -3,7 +3,7 @@
         <div *ngFor="let pile of cardList | mainboard | piles" class="mtg-pile">
             <div *ngFor="let card of pile; let index = index;" class="mtg-card position-absolute pile-card-{{index}}">
                 <div class="mtg-border-fix">
-                    <img src="data:image/jpeg;base64,{{card.image}}" />
+                    <img src="{{card.image}}" />
                 </div>
             </div>
         </div>
@@ -12,7 +12,7 @@
         <div *ngFor="let pile of cardList | sideboard | piles:15" class="mtg-pile">
             <div *ngFor="let card of pile; let index = index;" class="mtg-card position-absolute pile-card-sideboard-{{index}}">
                 <div class="mtg-border-fix">
-                    <img src="data:image/jpeg;base64,{{card.image}}" />
+                    <img src="{{card.image}}" />
                 </div>
             </div>
         </div>
