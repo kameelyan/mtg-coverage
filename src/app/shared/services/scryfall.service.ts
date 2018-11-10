@@ -30,4 +30,8 @@ export class ScryfallService {
         };
         return this.http.post<{}>('https://api.scryfall.com/cards/collection', data);
     }
+
+    getCardPreview(data) {
+        return this.http.post<{}>(this.api + '/cardPreview', data);
+    }
 }

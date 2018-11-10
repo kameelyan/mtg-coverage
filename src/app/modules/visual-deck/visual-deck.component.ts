@@ -16,6 +16,7 @@ export class VisualDeckComponent implements OnInit {
     cardNames: string[];
     cardList: Array<Card> = [];
     dataLoaded = false;
+    cardsNotFound = [];
 
     constructor(
         private scryFall: ScryfallService,
@@ -36,6 +37,7 @@ export class VisualDeckComponent implements OnInit {
     getVisualDeck() {
         this.cardList = [];
         this.dataLoaded = false;
+        this.cardsNotFound = [];
         const cardLine = /^(\d{1,2})x? (.*)$/;
         let mainboard = true;
         this.decklist.trim().split('\n').forEach(line => {
@@ -71,6 +73,8 @@ export class VisualDeckComponent implements OnInit {
                     });
                     this.dataLoaded = true;
                     this.tournamentService.saveVisualList(this.cardList, this.deckname).subscribe();
+                } else {
+                    this.cardsNotFound = data['not_found'];
                 }
             }
         );

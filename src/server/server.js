@@ -231,6 +231,27 @@ var loadImageFile = function (file) {
     return new Buffer.from(bitmap).toString('base64');
 };
 
+app.post('/api/cardPreview', (req, res) => {
+
+    let file = ImagesDirectory + '/' + req.body['id'] + '_' + req.body['size'] + '.png';
+    ensureDirectory(file);
+    if (fs.existsSync(file)) {
+        fs.copyFileSync(file, path.resolve(OBSDirectory, 'cardPreview.png'));
+        res.send({
+            src: loadImageFile(file),
+            id: req.body['id']
+        });
+    } else {
+        download(req.body['url'], file, function () {
+            fs.copyFileSync(file, path.resolve(OBSDirectory, 'cardPreview.png'));
+            res.send({
+                src: loadImageFile(file),
+                id: req.body['id']
+            });
+        });
+    }
+});
+
 app.post('/api/cardImage', (req, res) => {
 
     let file = ImagesDirectory + '/' + req.body['id'] + '_' + req.body['size'] + '.jpg';
