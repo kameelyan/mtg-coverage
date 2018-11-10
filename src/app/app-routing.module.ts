@@ -6,6 +6,9 @@ import { TournamentResolver } from './shared/services/tournament-resolver';
 import { HomeComponent } from './modules/home/home.component';
 import { MatchResolver } from './shared/services/match-resolver';
 import { ScorekeeperComponent } from './modules/scorekeeper/scorekeeper.component';
+import { VisualDeckComponent } from './modules/visual-deck/visual-deck.component';
+import { VisualViewComponent } from './modules/visual-view/visual-view.component';
+import { VisualDecklistResolver } from './shared/services/visual-decklist-resolver';
 
 const routes: Routes = [
     {
@@ -35,6 +38,13 @@ const routes: Routes = [
         component: ScorekeeperComponent,
         resolve: {
             tournament: TournamentResolver
+        }
+    },
+    {
+        path: 'visualview',
+        component: VisualViewComponent,
+        resolve: {
+            decklist: VisualDecklistResolver
         }
     },
     { path: '**', redirectTo: '' }

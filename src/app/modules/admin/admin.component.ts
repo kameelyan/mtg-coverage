@@ -27,10 +27,6 @@ export class AdminComponent implements OnInit {
     cardNames: string[];
     selectedCard: string;
     selectedImage: any;
-    parsedDeck: any;
-    visualDeck: any;
-    visualMainDeck: Array<string> = [];
-    visualSideBoard: Array<string> = [];
 
     constructor(
         private tournamentService: TournamentService,
@@ -131,9 +127,8 @@ export class AdminComponent implements OnInit {
             (data) => {
                 console.log(data);
                 const request = {
-                    url: data['image_uris'].normal,
-                    id: data['id'],
-                    size: 'normal'
+                    url: data['image_uris'].png,
+                    id: data['id']
                 };
 
                 this.scryFall.getCardImage(request).subscribe(
@@ -144,85 +139,7 @@ export class AdminComponent implements OnInit {
             }
         );
     }
-
-    getVisualDeck() {
-        const expression = /^(\d{1,2})x? (.*)$/;
-        const list = this.visualDeck.trim().split('\n').map(line => {
-            let name: string = line.replace(expression, '$2');
-            if (/(\/{1})/.test(name)) {
-                name = name.replace('/', '//');
-            }
-            return {
-                number: line.replace(expression, '$1'),
-                name: name
-            };
-        });
-        let reduced: string[] = [];
-        list.forEach(card => {
-            if (card.name.length > 0) {
-                if (!reduced.includes(card.name)) {
-                    reduced.push(card.name);
-                }
-            }
-        });
-        const identifiers = reduced.map(card => {
-            return { name: card };
-        });
-        this.scryFall.getListOfCards(identifiers).subscribe(
-            (data) => {
-                let merged = reduced.map((name, index) => {
-                    return {
-                        query: name,
-                        result: data['data'][index]
-                    };
-                });
-                let mainBoard = true;
-                let final = list.map(card => {
-                    let data = {
-                        number: card.number,
-                        name: card.name,
-                        image: null,
-                        size: 'small',
-                        id: null,
-                        url: null,
-                        mainboard: mainBoard
-                    };
-                    if (card.name.length > 0) {
-                        let scryCard = merged.filter(data => {
-                            return data.query === card.name;
-                        }).shift();
-                        data.id = scryCard.result['id'];
-                        data.url = scryCard.result['image_uris'].small;
-                    } else {
-                        mainBoard = false;
-                    }
-                    return data;
-                });
-
-                this.visualMainDeck = [];
-                this.visualSideBoard = [];
-                final.forEach(card => {
-                    if (card.name.length > 0) {
-                        this.scryFall.getCardImage(card).subscribe(
-                            (data) => {
-                                card.image = data['src'];
-                                for (let i = 1; i <= card.number; i++) {
-                                    if (card.mainboard) {
-                                        this.visualMainDeck.push(card.image);
-                                    } else {
-                                        this.visualSideBoard.push(card.image);
-                                    }
-                                }
-                            }
-                        );
-                    }
-                });
-                this.parsedDeck = final;
-            }
-        );
-
-    }
-
+    
     ngOnInit() {
         this.tournamentService.matchUpdate().subscribe(
             (data) => {

@@ -6,6 +6,7 @@ import { Tournament, Match } from '../classes/tournament';
 import { Socket } from 'ngx-socket-io';
 import { map } from 'rxjs/operators';
 import { Message } from '../classes/message';
+import { Card } from '../classes/cards';
 
 @Injectable({
     providedIn: 'root'
@@ -32,7 +33,6 @@ export class TournamentService {
     }
 
     saveMatch(match: Match): Observable<Match> {
-        console.log(match);
         return this.http.put<Match>(this.api + '/match', match);
     }
 
@@ -66,6 +66,27 @@ export class TournamentService {
 
     receiveChatMessage() {
         return this.socket.fromEvent('addToChat').pipe(
+            map((data) => {
+                return data;
+            })
+        )
+    }
+
+    saveVisualList(cardList: Card[]): Observable<Card[]> {
+        console.log('save');
+        return this.http.put<any>(this.api + '/visuallist', cardList);
+    }
+
+    getVisualList(): Observable<Card[]> {
+        return this.http.get<Card[]>(this.api + '/visuallist');
+    }
+
+    sendVisualList(cardList: Card[]) {
+        this.socket.emit('updateVisualList', cardList);
+    }
+
+    visualListUpdate() {
+        return this.socket.fromEvent('updateVisualList').pipe(
             map((data) => {
                 return data;
             })

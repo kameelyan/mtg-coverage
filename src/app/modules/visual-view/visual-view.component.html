@@ -1,0 +1,5 @@
+<div *ngIf="dataLoaded" class="d-flex flex-fill flex-wrap">
+    <div *ngFor="let card of cardList | mainboard">
+        <img src="data:image/png;base64,{{card.image}}" width="146" />
+    </div>
+</div>

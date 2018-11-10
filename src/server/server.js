@@ -44,8 +44,22 @@ var ensureDirectory = function (file) {
 
 var readTournament = function () {
     const file = path.resolve(__dirname, 'data/tournament.json');
-    const data = fs.readFileSync(file, 'utf8');
-    return JSON.parse(data);
+    ensureDirectory(file);
+    if (fs.existsSync(file)) {
+        const data = fs.readFileSync(file, 'utf8');
+        return JSON.parse(data);
+    }
+    return null;
+};
+
+var readVisualList = function () {
+    const file = path.resolve(__dirname, 'data/visuallist.json');
+    ensureDirectory(file);
+    if (fs.existsSync(file)) {
+        const data = fs.readFileSync(file, 'utf8');
+        return JSON.parse(data);
+    }
+    return JSON.parse('[]');
 };
 
 var writeTournament = function (tournament) {
@@ -54,6 +68,12 @@ var writeTournament = function (tournament) {
     fs.writeFileSync(file, JSON.stringify(tournament), 'utf8');
 
     writeOBSFiles(tournament);
+};
+
+var writeVisualList = function (cardList) {
+    let file = path.resolve(__dirname, 'data/visuallist.json');
+    ensureDirectory(file);
+    fs.writeFileSync(file, JSON.stringify(cardList), 'utf8');
 };
 
 var writeOBSFiles = function (tournament) {
@@ -186,7 +206,7 @@ app.use(function (req, res, next) {
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 
 var download = function (uri, filename, callback) {
     request.head(uri, function (err, res, body) {
@@ -199,18 +219,24 @@ var download = function (uri, filename, callback) {
 
 var loadImageFile = function (file) {
     const bitmap = fs.readFileSync(file);
-    return new Buffer(bitmap).toString('base64');
+    return new Buffer.from(bitmap).toString('base64');
 };
 
 app.post('/api/cardImage', (req, res) => {
 
-    let file = ImagesDirectory + '/' + req.body['id'] + '_' + req.body['size'] + '.jpg';
+    let file = ImagesDirectory + '/' + req.body['id'] + '.png';
     ensureDirectory(file);
     if (fs.existsSync(file)) {
-        res.send({ src: loadImageFile(file) });
+        res.send({
+            src: loadImageFile(file),
+            id: req.body['id']
+        });
     } else {
         download(req.body['url'], file, function () {
-            res.send({ src: loadImageFile(file) });
+            res.send({
+                src: loadImageFile(file),
+                id: req.body['id']
+            });
         });
     }
 });
@@ -253,6 +279,15 @@ app.put('/api/match', (req, res) => {
     }
 });
 
+app.get('/api/visuallist', (req, res) => {
+    res.send(readVisualList());
+});
+
+app.put('/api/visuallist', (req, res) => {
+    writeVisualList(req.body);
+    res.send(req.body);
+});
+
 io.on('connection', function (socket) {
     console.log('a user connected: ' + socket.client.id);
 
@@ -268,6 +303,12 @@ io.on('connection', function (socket) {
 
     socket.on('addToChat', function (data) {
         socket.broadcast.emit('addToChat', data);
+    });
+
+    let file = path.resolve(__dirname, 'data/visuallist.json');
+    ensureDirectory(file);
+    fs.watchFile(path.resolve(__dirname, 'data/visuallist.json'), (curr, prev) => {
+        socket.broadcast.emit('updateVisualList', readVisualList());
     });
 });
 
