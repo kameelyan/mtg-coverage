@@ -439,7 +439,7 @@
                         <div class="form-group">
                             <input type="number" name="outstandingMatches" class="form-control" [(ngModel)]="tournament.scorekeeper.outstandingMatches" />
                         </div>
-                        <h3>Players to Watch</h3>
+                        <h3>Players to Watch <button type="button" class="btn btn-link" (click)="clearPlayers2Watch()">Clear</button></h3>
                         <div class="d-flex flex-wrap">
                             <div class="form-row w-100" *ngFor="let player of tournament.scorekeeper.playersToWatch; let i = index; let isFirst = first;">
                                 <div class="form-group col-4">

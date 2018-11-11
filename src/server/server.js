@@ -102,7 +102,7 @@ var writeOBSFiles = function (tournament) {
 
     // ScoreKeeper Data
     file = path.resolve(OBSDirectory, 'outstandingMatches.txt');
-    fs.writeFileSync(file, tournament.scorekeeper.outstandingMatches, 'utf8');
+    fs.writeFileSync(file, tournament.scorekeeper.outstandingMatches + ' Outstanding Matches', 'utf8');
 
     let i = 1;
     tournament.scorekeeper.playersToWatch.forEach((player) => {

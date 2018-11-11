@@ -50,6 +50,15 @@ export class ScorekeeperComponent implements OnInit {
         }
     }
 
+    clearPlayers2Watch() {
+        this.tournament.scorekeeper.playersToWatch.forEach(player => {
+            player.name = '';
+            player.record = '';
+            player.standing = '';
+            this.form.control.markAsDirty();
+        });
+    }
+
     onUpdate() {
         this.form.control.markAsPristine();
         this.tournamentService.sendTournament(this.tournament);

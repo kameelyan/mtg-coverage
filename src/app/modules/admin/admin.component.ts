@@ -89,6 +89,15 @@ export class AdminComponent implements OnInit {
         }
     }
 
+    clearPlayers2Watch() {
+        this.tournament.scorekeeper.playersToWatch.forEach(player => {
+            player.name = '';
+            player.record = '';
+            player.standing = '';
+            this.dataChanged = true;
+        });
+    }
+
     swapPlayers(match: Match) {
         const leftPlayer: Player = new Player(match.leftPlayer);
         const rightPlayer: Player = new Player(match.rightPlayer);
