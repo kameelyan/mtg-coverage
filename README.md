@@ -4,7 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run start` for a dev server. Navigate to `http://localhost:80/`. The app will automatically reload if you change any of the source files.
+Files will be stored based on the app/server/config/index.js file directory configuration. Edit this file to edit the save locations.
 
 ## Build
 
