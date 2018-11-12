@@ -23,6 +23,15 @@ parser(xml, (err, result) => {
 });
 */
 
+var ensureDirectory = function (file) {
+    const dir = path.dirname(file);
+    if (fs.existsSync(dir)) {
+        return true;
+    }
+    ensureDirectory(dir);
+    fs.mkdirSync(dir);
+};
+
 let OBSDirectory = path.resolve(__dirname);
 if (config.OBSDirectory) {
     OBSDirectory = path.resolve(config.OBSDirectory);
@@ -36,19 +45,11 @@ if (config.ImagesDirectory) {
 let JSONDirectory = path.resolve(__dirname, 'data');
 if (config.JSONDirectory) {
     JSONDirectory = path.resolve(config.JSONDirectory);
+    ensureDirectory(JSONDirectory);
 }
 
-var ensureDirectory = function (file) {
-    const dir = path.dirname(file);
-    if (fs.existsSync(dir)) {
-        return true;
-    }
-    ensureDirectory(dir);
-    fs.mkdirSync(dir);
-};
-
 var readTournament = function () {
-    const file = path.resolve(JSONDirectory, '/tournament.json');
+    const file = path.resolve(JSONDirectory, 'tournament.json');
     ensureDirectory(file);
     if (fs.existsSync(file)) {
         const data = fs.readFileSync(file, 'utf8');
@@ -58,7 +59,7 @@ var readTournament = function () {
 };
 
 var readVisualList = function () {
-    const file = path.resolve(JSONDirectory, '/visuallist.json');
+    const file = path.resolve(JSONDirectory, 'visuallist.json');
     ensureDirectory(file);
     if (fs.existsSync(file)) {
         const data = fs.readFileSync(file, 'utf8');
@@ -68,7 +69,7 @@ var readVisualList = function () {
 };
 
 var writeTournament = function (tournament) {
-    let file = path.resolve(JSONDirectory, '/tournament.json');
+    let file = path.resolve(JSONDirectory, 'tournament.json');
     ensureDirectory(file);
     fs.writeFileSync(file, JSON.stringify(tournament), 'utf8');
 
@@ -83,7 +84,7 @@ var writeVisualList = function (cardList, deckname = 'Decklist') {
         });
 
         Promise.all(promises).then(() => {
-            let file = path.resolve(JSONDirectory, '/visuallist.json');
+            let file = path.resolve(JSONDirectory, 'visuallist.json');
             ensureDirectory(file);
             fs.writeFileSync(file, JSON.stringify(cardList), 'utf8');
 
@@ -256,7 +257,7 @@ var loadImageFile = function (file) {
 };
 
 app.post('/api/cardPreview', (req, res) => {
-    let file = ImagesDirectory + '/' + req.body['id'] + '_' + req.body['size'] + '.png';
+    let file = path.resolve(ImagesDirectory, req.body['id'] + '_' + req.body['size'] + '.png');
     ensureDirectory(file);
     if (fs.existsSync(file)) {
         fs.copyFileSync(file, path.resolve(OBSDirectory, 'cardPreview.png'));
@@ -276,7 +277,7 @@ app.post('/api/cardPreview', (req, res) => {
 });
 
 app.get('/api/image/:file', (req, res) => {
-    const file = path.resolve(ImagesDirectory + '/' + req.params['file']);
+    const file = path.resolve(ImagesDirectory, req.params['file']);
     ensureDirectory(file);
     if (fs.existsSync(file)) {
         res.sendfile(file);
@@ -360,7 +361,7 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('addToChat', data);
     });
 
-    let file = path.resolve(JSONDirectory, '/visuallist.json');
+    let file = path.resolve(JSONDirectory, 'visuallist.json');
     ensureDirectory(file);
     fs.watchFile(file, (curr, prev) => {
         socket.broadcast.emit('updateVisualList', readVisualList());
@@ -370,9 +371,9 @@ io.on('connection', function (socket) {
 server.listen(port, function () {
     console.log("listening to port: " + port);
 
-    if (!fs.existsSync(path.resolve(JSONDirectory, '/tournament.json'))) {
+    if (!fs.existsSync(path.resolve(JSONDirectory, 'tournament.json'))) {
         let file = path.resolve(__dirname, 'data/tournament.backup.json');
-        fs.copyFileSync(file, path.resolve(JSONDirectory, '/tournament.json'));
+        fs.copyFileSync(file, path.resolve(JSONDirectory, 'tournament.json'));
     }
     const tournament = readTournament();
     writeOBSFiles(tournament);
