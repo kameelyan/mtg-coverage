@@ -76,13 +76,37 @@ var writeTournament = function (tournament) {
 };
 
 var writeVisualList = function (cardList, deckname = 'Decklist') {
-    let file = path.resolve(JSONDirectory, '/visuallist.json');
-    ensureDirectory(file);
-    fs.writeFileSync(file, JSON.stringify(cardList), 'utf8');
+    return new Promise((fulfill) => {
+        let promises = [];
+        cardList.forEach(card => {
+            promises.push(writeScryfallImages(card.id, 'normal', '.jpg', card.url));
+        });
 
-    ensureDirectory(path.resolve(OBSDirectory, 'foo.txt'));
-    file = path.resolve(OBSDirectory, 'visualDeckName.txt');
-    fs.writeFileSync(file, deckname, 'utf8');
+        Promise.all(promises).then(() => {
+            let file = path.resolve(JSONDirectory, '/visuallist.json');
+            ensureDirectory(file);
+            fs.writeFileSync(file, JSON.stringify(cardList), 'utf8');
+
+            ensureDirectory(path.resolve(OBSDirectory, 'foo.txt'));
+            file = path.resolve(OBSDirectory, 'visualDeckName.txt');
+            fs.writeFileSync(file, deckname, 'utf8');
+            fulfill();
+        });
+    });
+};
+
+var writeScryfallImages = function (id, size, filetype, scryfallURL) {
+    return new Promise((fulfill) => {
+        let file = ImagesDirectory + '/' + id + '_' + size + filetype;
+        ensureDirectory(file);
+        if (!fs.existsSync(file)) {
+            download(scryfallURL, file, function () {
+                fulfill();
+            });
+        } else {
+            fulfill();
+        }
+    });
 };
 
 var writeOBSFiles = function (tournament) {
@@ -232,7 +256,6 @@ var loadImageFile = function (file) {
 };
 
 app.post('/api/cardPreview', (req, res) => {
-
     let file = ImagesDirectory + '/' + req.body['id'] + '_' + req.body['size'] + '.png';
     ensureDirectory(file);
     if (fs.existsSync(file)) {
@@ -252,21 +275,14 @@ app.post('/api/cardPreview', (req, res) => {
     }
 });
 
-app.post('/api/cardImage', (req, res) => {
-
-    let file = ImagesDirectory + '/' + req.body['id'] + '_' + req.body['size'] + '.jpg';
+app.get('/api/image/:file', (req, res) => {
+    const file = path.resolve(ImagesDirectory + '/' + req.params['file']);
     ensureDirectory(file);
     if (fs.existsSync(file)) {
-        res.send({
-            src: loadImageFile(file),
-            id: req.body['id']
-        });
+        res.sendfile(file);
     } else {
         download(req.body['url'], file, function () {
-            res.send({
-                src: loadImageFile(file),
-                id: req.body['id']
-            });
+            res.sendfile(file);
         });
     }
 });
@@ -310,12 +326,21 @@ app.put('/api/match', (req, res) => {
 });
 
 app.get('/api/visuallist', (req, res) => {
-    res.send(readVisualList());
+    const cardList = readVisualList();
+    const promises = [];
+    cardList.forEach(card => {
+        promises.push(writeScryfallImages(card.id, 'normal', '.jpg', card.url));
+    });
+    Promise.all(promises).then(() => {
+        res.send(cardList);
+    });
 });
 
 app.put('/api/visuallist', (req, res) => {
-    writeVisualList(req.body['cardList'], req.body['name']);
-    res.send(req.body);
+    const promise = writeVisualList(req.body['cardList'], req.body['name']);
+    promise.then(() => {
+        res.send(req.body);
+    });
 });
 
 io.on('connection', function (socket) {

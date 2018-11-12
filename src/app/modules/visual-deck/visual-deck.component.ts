@@ -3,6 +3,7 @@ import { ScryfallService } from '../../shared/services/scryfall.service';
 import { Card, ScryFallIdentifier } from '../../shared/classes/cards';
 import { Observable, forkJoin } from 'rxjs';
 import { TournamentService } from '../../shared/services/tournament.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-visual-deck',
@@ -11,6 +12,7 @@ import { TournamentService } from '../../shared/services/tournament.service';
 })
 export class VisualDeckComponent implements OnInit {
     @HostBinding('class') class = 'd-flex flex-column flex-fill';
+    private api = environment.api;
     decklist: string;
     deckname: string;
     cardNames: string[];
@@ -70,9 +72,13 @@ export class VisualDeckComponent implements OnInit {
                         } else {
                             card.url = scryfall['image_uris']['normal'];
                         }
+                        card.image = this.api + '/api/image/' + card.id + '_' + card.size + '.jpg';
                     });
-                    this.dataLoaded = true;
-                    this.tournamentService.saveVisualList(this.cardList, this.deckname).subscribe();
+                    this.tournamentService.saveVisualList(this.cardList, this.deckname).subscribe(
+                        (data) => {
+                            this.dataLoaded = true;
+                        }
+                    );
                 } else {
                     this.cardsNotFound = data['not_found'];
                 }

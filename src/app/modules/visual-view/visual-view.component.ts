@@ -20,47 +20,19 @@ export class VisualViewComponent implements OnInit {
         private route: ActivatedRoute
     ) { }
 
-    updateCardImages() {
-        this.dataLoaded = false;
-        let allImages = [];
-        this.cardList.forEach(card => {
-            let length = allImages.filter(existing => { return card.id === existing.id }).length;
-            if (length === 0) {
-                allImages.push({
-                    id: card.id,
-                    url: card.url,
-                    size: 'normal'
-                });
-            }
-        });
-        const getImages = [];
-        allImages.forEach(image => {
-            getImages.push(this.scryFall.getCardImage(image));
-        });
-        forkJoin(getImages).subscribe(
-            (images) => {
-                this.cardList.forEach(card => {
-                    let image = images.filter(image => image['id'] === card.id).shift();
-                    card.image = 'data:image/jpeg;base64,' + image['src'];
-                });
-                this.dataLoaded = true;
-            }
-        );
-    }
-
     ngOnInit() {
         this.tournamentService.visualListUpdate().subscribe(
             (data: Card[]) => {
                 this.cardList = [];
                 data.forEach(card => this.cardList.push(new Card(card)));
-                this.updateCardImages();
+                this.dataLoaded = true;
             }
         );
 
         this.route.data.subscribe((data: { decklist: Card[] }) => {
             this.cardList = [];
             data.decklist.forEach(card => this.cardList.push(new Card(card)));
-            this.updateCardImages();
+            this.dataLoaded = true;
         });
     }
 

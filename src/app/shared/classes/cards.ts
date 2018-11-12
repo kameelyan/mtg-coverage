@@ -7,7 +7,7 @@ export class Card {
     cmc: number = 0;
     id: string = null;
     url: string = null;
-    size: string = 'small';
+    size: string = 'normal';
 
     constructor(data?: any) {
         if (data) {
