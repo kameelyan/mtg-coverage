@@ -280,10 +280,10 @@ app.get('/api/image/:file', (req, res) => {
     const file = path.resolve(ImagesDirectory, req.params['file']);
     ensureDirectory(file);
     if (fs.existsSync(file)) {
-        res.sendfile(file);
+        res.sendFile(file);
     } else {
         download(req.body['url'], file, function () {
-            res.sendfile(file);
+            res.sendFile(file);
         });
     }
 });
