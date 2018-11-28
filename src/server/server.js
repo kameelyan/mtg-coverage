@@ -32,7 +32,7 @@ var ensureDirectory = function (file) {
     fs.mkdirSync(dir);
 };
 
-let OBSDirectory = path.resolve(__dirname);
+let OBSDirectory = path.resolve(__dirname, 'obs');
 if (config.OBSDirectory) {
     OBSDirectory = path.resolve(config.OBSDirectory);
 }
