@@ -1,7 +1,13 @@
+let path = 'D:/NRG Stream/OBS/NRG Streaming Dashboard';
+
+if (path.trim().substr(-1) !== '/') {
+    path += '/';
+}
+
 var config = {
-    OBSDirectory: 'D:/NRG Stream/OBS/NRG Streaming Dashboard/DataFiles/',
-    ImagesDirectory: 'D:/NRG Stream/OBS/NRG Streaming Dashboard/Images/',
-    JSONDirectory: 'D:/NRG Stream/OBS/NRG Streaming Dashboard/JSON/'
+    OBSDirectory: path + 'DataFiles/',
+    ImagesDirectory: path + 'Images/',
+    JSONDirectory: path + 'JSON/'
 };
 
 module.exports = {
