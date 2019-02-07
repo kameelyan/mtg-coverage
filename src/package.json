@@ -2,18 +2,12 @@
   "name": "mtg-coverage",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrently --kill-others \"npm run frontend\" \"npm run backend\"",
-    "frontend": "angular-http-server -p 80",
-    "backend": "node server/server.js -o"
+    "start": "node server/server.js -o"
   },
   "private": true,
   "dependencies": {
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "socket.io": "^2.1.1"
-  },
-  "devDependencies": {
-    "concurrently": "^4.0.1",
-    "angular-http-server": "^1.6.0"
   }
 }

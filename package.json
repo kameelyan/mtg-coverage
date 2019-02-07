@@ -4,10 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "concurrently \"npm run serve-api\" \"npm run serve\"",
-    "serve": "ng serve --proxy-config proxy.config.json --port 80",
+    "serve": "ng serve --proxy-config proxy.config.json",
     "serve-api": "nodemon \"src/server/server.js\" --watch --config nodemon.js",
     "build": "ng build --prod && npm --prefix ./dist/coverage install ./dist/coverage",
-    "postbuild": "cd ./dist && zip -r coverage.zip *",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

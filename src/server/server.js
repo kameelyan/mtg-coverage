@@ -2,6 +2,7 @@ require("dotenv").config();
 
 var config = require('./config');
 var path = require('path');
+var express = require('express');
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -12,7 +13,7 @@ var argv = require("minimist")(process.argv.slice(2));
 var parser = require('xml2js').parseString;
 var request = require('request');
 
-const port = 5000;
+const port = 80;
 
 /*
 var xml = fs.readFileSync(path.resolve(__dirname, 'data/2018_10.wer'), 'utf8');
@@ -241,6 +242,8 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json({ limit: '50mb' }));
+// server static files
+app.use(express.static(path.resolve(__dirname, '../')));
 
 var download = function (uri, filename, callback) {
     request.head(uri, function (err, res, body) {
@@ -342,6 +345,12 @@ app.put('/api/visuallist', (req, res) => {
     promise.then(() => {
         res.send(req.body);
     });
+});
+
+app.get('*', (req, res) => {
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.write(fs.readFileSync(path.resolve(__dirname, '../index.html')));
+    res.end();
 });
 
 io.on('connection', function (socket) {
