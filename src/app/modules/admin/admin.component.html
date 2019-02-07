@@ -483,9 +483,9 @@
                         <label>Search for a card:</label>
                         <input *ngIf="cardNames" name="cardSearch" type="text" class="form-control" [(ngModel)]="selectedCard" [ngbTypeahead]="searchCards" />
                     </div>
-                    <button type="button" class="btn btn-link" (click)="getCardImage()" [disabled]="!selectedCard">Get Card</button>
+                    <button type="submit" class="btn btn-link" (click)="getCardImage()" [disabled]="!selectedCard">Get Card</button>
                     <div *ngIf="selectedImage">
-                        <img src="data:image/png;base64,{{selectedImage}}" />
+                        <img class="searchedCard" src="data:image/png;base64,{{selectedImage}}" />
                     </div>
                 </form>
             </ng-template>

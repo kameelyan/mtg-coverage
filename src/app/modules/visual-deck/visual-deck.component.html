@@ -13,9 +13,9 @@
                 </div>
                 <div class="form-group">
                     <label>List</label>
-                    <textarea name="decklist" type="text" class="form-control" rows="25" [(ngModel)]="decklist"></textarea>
+                    <textarea name="decklist" type="text" class="form-control" rows="10" [(ngModel)]="decklist"></textarea>
                 </div>
-                <button type="button" class="btn btn-primary" (click)="getVisualDeck()" [disabled]="!(decklist && deckname)">Generate</button>
+                <button type="submit" class="btn btn-primary" (click)="getVisualDeck()" [disabled]="!(decklist && deckname)">Generate</button>
             </div>
             <div class="col-9 d-flex flex-fill align-items-center justify-content-center">
                 <div *ngIf="dataLoaded" class="text-center">
