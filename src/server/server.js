@@ -120,6 +120,13 @@ var writeOBSFiles = function (tournament) {
         fs.writeFileSync(file, input.value, 'utf8');
     });
 
+    const eventType = tournament.info.filter(input => input.name === 'eventType').shift();
+    const eventFormat = tournament.info.filter(input => input.name === 'format').shift();
+    if (eventType && eventFormat){
+        file = path.resolve(OBSDirectory, 'eventCombined.txt');
+        fs.writeFileSync(file, eventType.value + ": " + eventFormat.value, 'utf8');
+    }
+
     // Match Data
     tournament.matches.forEach((match) => {
         writePlayer(match.leftPlayer, match.name, 'leftPlayer');
