@@ -24,7 +24,8 @@
               "src/web.config",
               "src/server",
               "src/package.json",
-              "src/start.bat"
+              "src/start.bat",
+              "src/server.ico"
             ],
             "styles": [
                 "src/sass/styles.scss",
