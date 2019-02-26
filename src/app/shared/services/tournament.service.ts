@@ -48,6 +48,18 @@ export class TournamentService {
         )
     }
 
+    sendMatchValues(match: Match) {
+        this.socket.emit('updateMatchValues', match);
+    }
+
+    matchValuesUpdate() {
+        return this.socket.fromEvent('updateMatchValues').pipe(
+            map((data) => {
+                return data;
+            })
+        )
+    }
+
     sendMatch(match: Match) {
         this.socket.emit('updateMatch', match);
     }

@@ -368,6 +368,11 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('updateMatch', data);
     });
 
+    socket.on('updateMatchValues', function (data) {
+        saveMatch(data);
+        socket.broadcast.emit('updateMatchValues', data);
+    });
+
     socket.on('updateTournament', function (data) {
         writeTournament(data);
         socket.broadcast.emit('updateTournament', data);

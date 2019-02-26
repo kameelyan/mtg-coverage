@@ -116,6 +116,12 @@ export class Player {
             }
         }
     }
+
+    setValues(newValues: Player) {
+        this.gamewins = newValues.gamewins;
+        this.infect = newValues.infect;
+        this.life = newValues.life;
+    }
 }
 
 export class ScoreKeeper {
@@ -143,7 +149,7 @@ export class ScoreKeeper {
                 }
             }
         }
-        let remaining: number = 6 - this.playersToWatch.length;
+        let remaining: number = 8 - this.playersToWatch.length;
         for (let i = 0; i < remaining; i++) {
             this.playersToWatch.push(new PlayerToWatch());
         }

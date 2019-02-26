@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit {
 
     onUpdate() {
         this.dataChanged = false;
-        this.tournamentService.sendMatch(this.match);
+        this.tournamentService.sendMatchValues(this.match);
     }
 
     ngOnInit() {

@@ -27,6 +27,10 @@ export class AdminComponent implements OnInit {
     cardNames: string[];
     selectedCard: string;
     selectedImage: any;
+    selectedImageTransformed: any;
+    canTransform: boolean = false;
+    showTransformedCard: boolean = false;
+    transformRequest: any;
 
     constructor(
         private tournamentService: TournamentService,
@@ -134,11 +138,27 @@ export class AdminComponent implements OnInit {
     getCardImage() {
         this.scryFall.getCardByName(this.selectedCard).subscribe(
             (data) => {
+                console.log(data);
                 const request = {
-                    url: data['image_uris']['png'],
+                    url: null,
                     id: data['id'],
                     size: 'png'
                 };
+                if (data['card_faces'] && data['card_faces'].length > 0 && (data['layout'] == 'transform')) {
+                    request.url = data['card_faces'][0]['image_uris']['png'];
+                    this.canTransform = true;
+
+                    this.transformRequest = {
+                        url: data['card_faces'][1]['image_uris']['png'],
+                        id: data['id'] + "_transform",
+                        size: 'png'
+                    }
+                } else {
+                    request.url = data['image_uris']['png'];
+                    this.canTransform = false;
+                    this.showTransformedCard = false;
+                    this.selectedImageTransformed = null;
+                }
 
                 this.scryFall.getCardPreview(request).subscribe(
                     (data) => {
@@ -147,6 +167,17 @@ export class AdminComponent implements OnInit {
                 );
             }
         );
+    }
+
+    transformCardImage() {
+        this.showTransformedCard = !this.showTransformedCard;
+        if (this.showTransformedCard) {
+            this.scryFall.getCardPreview(this.transformRequest).subscribe(
+                (data) => {
+                    this.selectedImageTransformed = data['src'];
+                }
+            );
+        }
     }
     
     ngOnInit() {
@@ -159,6 +190,19 @@ export class AdminComponent implements OnInit {
                     } else {
                         return match;
                     }
+                });
+            }
+        );
+
+        this.tournamentService.matchValuesUpdate().subscribe(
+            (data) => {
+                let newMatch: Match = new Match(data);
+                this.tournament.matches = this.tournament.matches.map((match) => {
+                    if (match.name === newMatch.name) {
+                        match.leftPlayer.setValues(newMatch.leftPlayer);
+                        match.rightPlayer.setValues(newMatch.rightPlayer);
+                    }
+                    return match;
                 });
             }
         );
