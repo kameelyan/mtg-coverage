@@ -83,13 +83,8 @@ export class DashboardComponent implements OnInit {
         this.tournamentService.matchValuesUpdate().subscribe(
             (data) => {
                 let newMatch: Match = new Match(data);
-                this.tournament.matches = this.tournament.matches.map((match) => {
-                    if (match.name === newMatch.name) {
-                        match.leftPlayer.setValues(newMatch.leftPlayer);
-                        match.rightPlayer.setValues(newMatch.rightPlayer);
-                    }
-                    return match;
-                });
+                this.match.leftPlayer.setValues(newMatch.leftPlayer);
+                this.match.rightPlayer.setValues(newMatch.rightPlayer);
             }
         );
 
@@ -108,8 +103,6 @@ export class DashboardComponent implements OnInit {
         this.route.data.subscribe((data: { match: Match, tournament: Tournament }) => {
             this.tournament = new Tournament(data.tournament);
             this.match = new Match(data.match);
-            console.log(this.tournament);
-            console.log(this.match);
         });
     }
 }
