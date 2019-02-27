@@ -80,6 +80,19 @@ export class DashboardComponent implements OnInit {
             }
         );
 
+        this.tournamentService.matchValuesUpdate().subscribe(
+            (data) => {
+                let newMatch: Match = new Match(data);
+                this.tournament.matches = this.tournament.matches.map((match) => {
+                    if (match.name === newMatch.name) {
+                        match.leftPlayer.setValues(newMatch.leftPlayer);
+                        match.rightPlayer.setValues(newMatch.rightPlayer);
+                    }
+                    return match;
+                });
+            }
+        );
+
         this.tournamentService.tournamentUpdate().subscribe(
             (data) => {
                 this.tournament = new Tournament(data);
