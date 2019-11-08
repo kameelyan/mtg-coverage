@@ -12,7 +12,7 @@ import { FAIcons } from '../../shared/classes/fa-icons';
 })
 export class ScorekeeperComponent implements OnInit {
     @HostBinding('class') class = 'd-flex flex-column flex-fill';
-    @ViewChild('form') form: NgForm;
+    @ViewChild('form', { static: false }) form: NgForm;
     tournament: Tournament;
     newMessages = 0;
     activeTab: any;

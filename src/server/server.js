@@ -15,15 +15,6 @@ var request = require('request');
 
 const port = 80;
 
-/*
-var xml = fs.readFileSync(path.resolve(__dirname, 'data/2018_10.wer'), 'utf8');
-parser(xml, (err, result) => {
-    result.event.participation[0].person.forEach(person => {
-        console.log(person['$'].id + " : " + person['$'].first + " " + person['$'].last);
-    });
-});
-*/
-
 var ensureDirectory = function (file) {
     const dir = path.dirname(file);
     if (fs.existsSync(dir)) {
@@ -394,13 +385,14 @@ server.listen(port, function () {
 
     if (!fs.existsSync(path.resolve(JSONDirectory, 'tournament.json'))) {
         let file = path.resolve(__dirname, 'data/tournament.backup.json');
-        fs.copyFileSync(file, path.resolve(JSONDirectory, 'tournament.json'));
+        let newfile = path.resolve(JSONDirectory, 'tournament.json');
+        ensureDirectory(newfile);
+        fs.copyFileSync(file, newfile);
     }
     const tournament = readTournament();
     writeOBSFiles(tournament);
 
     if (argv.o) {
-        opn("http://localhost");
         opn("http://localhost/admin");
     }
 });

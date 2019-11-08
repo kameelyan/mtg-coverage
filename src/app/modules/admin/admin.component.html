@@ -466,15 +466,6 @@
                 </form>
             </ng-template>
         </ngb-tab>
-        <!--CHAT-->
-        <ngb-tab id="chat">
-            <ng-template ngbTabTitle>
-                <div (click)="clearNewMessages()">Chat <span class="badge badge-light" *ngIf="newMessages > 0">{{newMessages}}</span></div>
-            </ng-template>
-            <ng-template ngbTabContent>
-                <app-chat (newMessage)="newChatMessage($event)"></app-chat>
-            </ng-template>
-        </ngb-tab>
         <!--CARD SEARCH-->
         <ngb-tab title="Card Search">
             <ng-template ngbTabContent>
