@@ -1,0 +1,19 @@
+<div class="d-flex">
+    <div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['match/matchA']">Match A</a>
+            </li>
+            <li>
+                <a class="nav-link" [routerLink]="['match/matchB']">Match B</a>
+            </li>
+            <li>
+                <a class="nav-link" [routerLink]="['match/matchC']">Match C</a>
+            </li>
+        </ul>
+    </div>
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+

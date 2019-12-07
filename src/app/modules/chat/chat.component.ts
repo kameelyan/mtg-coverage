@@ -11,7 +11,7 @@ import { Message } from '../../shared/classes/message';
 export class ChatComponent implements OnInit {
     @HostBinding('class') class = 'd-flex flex-column flex-fill';
     @Output() newMessage = new EventEmitter<{}>();
-    @ViewChild('form') form: NgForm;
+    @ViewChild('form', { static: false }) form: NgForm;
     messages: Array<Message> = [];
     name: string;
     message: string;

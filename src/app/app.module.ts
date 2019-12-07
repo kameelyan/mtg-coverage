@@ -21,6 +21,7 @@ import { MainboardPipe } from './shared/pipes/mainboard.pipe';
 import { VisualViewComponent } from './modules/visual-view/visual-view.component';
 import { PilesPipe } from './shared/pipes/piles.pipe';
 import { SideboardPipe } from './shared/pipes/sideboard.pipe';
+import { SharedModule } from './shared/shared.module';
 
 const config: SocketIoConfig = { url: environment.api, options: {} };
 
@@ -31,25 +32,20 @@ const config: SocketIoConfig = { url: environment.api, options: {} };
         HttpClientModule,
         NgbModule,
         FormsModule,
-        FontAwesomeModule,
         BrowserModule,
-        SocketIoModule.forRoot(config)
+        SocketIoModule.forRoot(config),
+        SharedModule,
+        FontAwesomeModule
     ],
     declarations: [
         AppComponent,
         DashboardComponent,
         AdminComponent,
         HomeComponent,
-        AvailablePipe,
-        DisplayOrderPipe,
-        Top8Pipe,
         ScorekeeperComponent,
         ChatComponent,
         VisualDeckComponent,
-        MainboardPipe,
-        VisualViewComponent,
-        PilesPipe,
-        SideboardPipe
+        VisualViewComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

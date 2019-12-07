@@ -19,6 +19,13 @@ const routes: Routes = [
         }
     },
     {
+        path: 'director',
+        loadChildren: () => import('./director/director.module').then(m => m.DirectorModule),
+        resolve: {
+            tournament: TournamentResolver
+        }
+    },
+    {
         path: 'match/:name',
         component: DashboardComponent,
         resolve: {

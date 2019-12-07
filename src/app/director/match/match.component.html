@@ -1,0 +1,148 @@
+<form class="d-flex flex-column bg-white p-4" #form="ngForm">
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" name="{{match.name + '_active'}}" id="{{match.name + '_active'}}" [(ngModel)]="match.available" />
+        <label class="form-check-label" for="{{match.name + '_active'}}">Active</label>
+    </div>
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" name="{{match.name + '_begin'}}" id="{{match.name + '_begin'}}" [(ngModel)]="match.begin" />
+        <label class="form-check-label" for="{{match.name + '_begin'}}">Ready to Start</label>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-outline-dark d-inline-flex align-items-center justify-content-center" (click)="toggleSideboards()">
+            <fa-icon [icon]="faIcons.faTimes" *ngIf="showSideboard" size="2x"></fa-icon>
+            <span class="ml-2" *ngIf="showSideboard">Hide Sideboards</span>
+            <fa-icon [icon]="faIcons.faList" *ngIf="!showSideboard" size="2x"></fa-icon>
+            <span class="ml-2" *ngIf="!showSideboard">Show Sideboards</span>
+        </button>
+    </div>
+    <fieldset [disabled]="!match.available" class="text-dark" *ngIf="showSideboard">
+        <div class="d-flex flex-fill">
+            <div class="d-flex flex-column flex-grow-1 pr-2">
+                <h3>Left Player</h3>
+                <div class="form-group">
+                    <label>Sideboard</label>
+                    <textarea class="form-control" rows="15" name="leftPlayer_sideboard" [(ngModel)]="match.leftPlayer.sideboard"></textarea>
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-grow-1 pl-2">
+                <h3 class="text-right">Right Player</h3>
+                <div class="form-group">
+                    <label class="text-right w-100">Sideboard</label>
+                    <textarea class="form-control" rows="15" name="rightPlayer_sideboard" [(ngModel)]="match.rightPlayer.sideboard"></textarea>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-outline-dark btn-block btn-xl font-nrg" [class.btn-update]="form.dirty || dataChanged" [class.btn-muted]="!(form.dirty || dataChanged)" (click)="onUpdate()">UPDATE</button>
+        </div>
+    </fieldset>
+    <fieldset [disabled]="!match.available" class="text-dark" *ngIf="!showSideboard">
+        <div class="d-flex flex-fill">
+            <div class="d-flex flex-column flex-grow-1">
+                <h3>Left Player</h3>
+                <div class="form-group row">
+                    <label for="leftPlayerName" class="col-2 col-form-label text-right">Name</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control" name="leftPlayerName" [(ngModel)]="match.leftPlayer.name" placeholder="Name" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="leftPlayerDeck" class="col-2 col-form-label text-right">Deck</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control" name="leftPlayerDeck" [(ngModel)]="match.leftPlayer.deck" placeholder="Deck" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="leftPlayerRecord" class="col-2 col-form-label text-right">Record</label>
+                    <div class="col-10">
+                        <input type="text" class="form-control" name="leftPlayerRecord" [(ngModel)]="match.leftPlayer.record" placeholder="Record" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-10 offset-2 d-flex align-items-center justify-content-center mb-3">
+                        <button type="button" class="btn btn-outline-dark" (click)="updateValue(match.leftPlayer, 1)">
+                            <fa-icon [icon]="faIcons.faPlus" size="2x"></fa-icon>
+                        </button>
+                        <input type="number" class="form-control input-life mx-5" name="leftPlayerLife" [(ngModel)]="match.leftPlayer.life" />
+                        <button type="button" class="btn btn-outline-dark" (click)="updateValue(match.leftPlayer, -1)">
+                            <fa-icon [icon]="faIcons.faMinus" size="2x"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="leftPlayerInfect" class="col-2 col-form-label text-right">Infect</label>
+                    <div class="col-10">
+                        <input type="number" class="form-control" name="leftPlayerInfect" [(ngModel)]="match.leftPlayer.infect" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="leftPlayerWins" class="col-2 col-form-label text-right">Game Wins</label>
+                    <div class="col-10">
+                        <input type="number" class="form-control" name="leftPlayerWins" [(ngModel)]="match.leftPlayer.gamewins" />
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-center px-4">
+                <div class="text-center w-100 mb-5">
+                    <button type="button" class="btn btn-outline-dark btn-block" (click)="swapPlayers(match)">
+                        <fa-icon [icon]="faIcons.faSwap" size="2x"></fa-icon>
+                        <div>Swap Players</div>
+                    </button>
+                </div>
+                <div class="text-center w-100">
+                    <button type="button" class="btn btn-outline-dark btn-block" (click)="resetLife(match)">
+                        <fa-icon [icon]="faIcons.faUndo" size="2x"></fa-icon>
+                        <div>Reset Life</div>
+                    </button>
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-grow-1">
+                <h3 class="text-right">Right Player</h3>
+                <div class="form-group row">
+                    <div class="col-10">
+                        <input type="text" class="form-control" name="rightPlayerName" [(ngModel)]="match.rightPlayer.name" placeholder="Name" />
+                    </div>
+                    <label for="rightPlayerName" class="col-2 col-form-label">Name</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-10">
+                        <input type="text" class="form-control" name="rightPlayerDeck" [(ngModel)]="match.rightPlayer.deck" placeholder="Deck" />
+                    </div>
+                    <label for="rightPlayerDeck" class="col-2 col-form-label">Deck</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-10">
+                        <input type="text" class="form-control" name="rightPlayerRecord" [(ngModel)]="match.rightPlayer.record" placeholder="Record" />
+                    </div>
+                    <label for="rightPlayerRecord" class="col-2 col-form-label">Record</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-10 d-flex align-items-center justify-content-center mb-3">
+                        <button type="button" class="btn btn-outline-dark" (click)="updateValue(match.rightPlayer, 1)">
+                            <fa-icon [icon]="faIcons.faPlus" size="2x"></fa-icon>
+                        </button>
+                        <input type="number" class="form-control input-life mx-5" name="rightPlayerLife" [(ngModel)]="match.rightPlayer.life" />
+                        <button type="button" class="btn btn-outline-dark" (click)="updateValue(match.rightPlayer, -1)">
+                            <fa-icon [icon]="faIcons.faMinus" size="2x"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-10">
+                        <input type="number" class="form-control" name="rightPlayerInfect" [(ngModel)]="match.rightPlayer.infect" />
+                    </div>
+                    <label for="rightPlayerInfect" class="col-2 col-form-label">Infect</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-10">
+                        <input type="number" class="form-control" name="rightPlayerWins" [(ngModel)]="match.rightPlayer.gamewins" />
+                    </div>
+                    <label for="rightPlayerWins" class="col-2 col-form-label">Game Wins</label>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-outline-dark btn-block btn-xl font-nrg" [class.btn-update]="form.dirty || dataChanged" [class.btn-muted]="!(form.dirty || dataChanged)" (click)="onUpdate()">UPDATE</button>
+        </div>
+    </fieldset>
+</form>

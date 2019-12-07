@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminComponent implements OnInit {
     @HostBinding('class') class = 'd-flex flex-column flex-fill';
-    @ViewChild('form') form: NgForm;
+    @ViewChild('form', { static: false }) form: NgForm;
     tournament: Tournament;
     dataChanged: boolean = false;
     showSideboard: boolean = false;

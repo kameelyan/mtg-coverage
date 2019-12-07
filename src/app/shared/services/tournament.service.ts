@@ -24,7 +24,6 @@ export class TournamentService {
     }
 
     saveTournament(tournament: Tournament): Observable<Tournament> {
-        console.log(tournament);
         return this.http.put<Tournament>(this.api + '/tournament', tournament);
     }
 
