@@ -90,6 +90,6 @@ export class MatchComponent implements OnInit {
     onUpdate() {
         this.dataChanged = false;
         this.form.control.markAsPristine();
-        this.tournamentService.sendTournament(this.tournament);
+        this.tournamentService.sendMatch(this.match);
     }
 }
